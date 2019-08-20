@@ -1,6 +1,6 @@
 import React from 'react';
 import './App.css';
-import {Jumbotron, Accordion, Card} from 'react-bootstrap';
+import {Card} from 'react-bootstrap';
 
 function App() {
   return (
