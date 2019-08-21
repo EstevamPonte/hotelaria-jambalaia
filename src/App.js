@@ -1,12 +1,11 @@
 import React from 'react';
 import './App.css';
-import {Card} from 'react-bootstrap';
+import Header from './Componente/Leyout/Header'
+
 
 function App() {
   return (
-    <Card>
-      
-    </Card>
+        <Header/>
   );
 }
 
