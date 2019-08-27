@@ -1,17 +1,6 @@
-import React from 'react';
-import './App.css';
-import Header from './Componente/Leyout/Header'
-import Footer from './Componente/Leyout/Footer'
-import FormDeProcura from './Componente/Form/FormDeProcura'
+import React from "react";
+import Routes from "./routes";
+import "./styles/global";
 
-function App() {
-    return (
-        <div>
-            <Header />
-                <FormDeProcura/>
-            <Footer />
-        </div>
-    );
-}
-
+const App = () => <Routes />;
 export default App;

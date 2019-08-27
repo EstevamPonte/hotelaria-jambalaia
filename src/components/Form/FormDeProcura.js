@@ -1,5 +1,5 @@
-import React from 'react'
-import { Form, Container, Row, Dropdown, Button, Col } from 'react-bootstrap';
+import React from './node_modules/react'
+import { Form, Container, Row, Dropdown, Button, Col } from './node_modules/react-bootstrap';
 import Calendar from 'react-calendar'
 class FormDeProcura extends React.Component {
     constructor(props) {
