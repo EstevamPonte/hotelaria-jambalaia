@@ -2,13 +2,14 @@ import React from 'react';
 import './App.css';
 import Header from './Componente/Leyout/Header'
 import Footer from './Componente/Leyout/Footer'
-import FormDeProcura from './Componente/Form/FormDeProcura'
+import SearchForm from './Componente/Form/SearchForm'
+import Home from './Componente/Screens/Home'
 
 function App() {
     return (
         <div>
             <Header />
-                <FormDeProcura/>
+                <SearchForm/>
             <Footer />
         </div>
     );

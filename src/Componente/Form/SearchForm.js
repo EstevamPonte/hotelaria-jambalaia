@@ -1,14 +1,15 @@
 import React from 'react'
-import { Form, Container, Row, Dropdown, Button, Col } from 'react-bootstrap';
+import { Form, Container, Row, Dropdown, Button, Col, InputGroup, DropdownButton} from 'react-bootstrap';
 import Calendar from 'react-calendar'
-class FormDeProcura extends React.Component {
+class SearchForm extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
             adultos: 0,
             crianca: 0,
             bebes: 0,
-            date: new Date()
+            date: new Date(),
+            selectDateIn: ""
         }
     }
 
@@ -66,59 +67,93 @@ class FormDeProcura extends React.Component {
         })
     }
 
+    setDate = (year) => {
+        // this.setState({
+        //     selectDateIn: value
+        // })
+        console.log()
+    }
+
     onDateChange = date => this.setState({ date })
 
     render() {
 
         return (
-            <Container>
+            <div>
+                
+                <Container>
+                    <Row className="justify-content-md-center">
+                        <Col md="auto">
+                            <h1 >Escolha seu destino</h1>
+                        </Col>
+                    </Row>
+                    <Form>
+                        <Form.Group controlId="formLocal">
+                            <Row className="justify-content-md-center">
+                                <Col md="auto">
+                                    <Form.Label>Local</Form.Label>
+                                    <Form.Control label='Local' size="lg" type="text" placeholder="Escolha seu destino"></Form.Control>
+                                </Col>
+                            </Row>
+                        </Form.Group>
+                        <Form.Group controlId="FormCalendar">
 
-                <Row>
-                    <Form.Group controlId="formLocal">
-                        <Form.Label>Local</Form.Label>
-                        <Form.Control label='Local' size="lg" type="text" placeholder="Escolha seu destino"></Form.Control>
-                    </Form.Group>
-                </Row>
-                <Row>
-                    <Form.Group controlId="calendarios">
-                        <Row>
-                            <Col xs={6}>
-                                <Dropdown>
-                                    <Dropdown.Toggle variant='info' id="dropdown-basic">
-                                        Entrada
-                                    </Dropdown.Toggle>
-                                    <Dropdown.Menu style={{padding: 0}}>
+                            <Row className="justify-content-md-center">
+                                <Col xs lg={3}>
+                                    <InputGroup className="mb-3">
+                                        <DropdownButton
+                                            as={InputGroup.Prepend}
+                                            variant="outline-secondary"
+                                            title="Dropdown"
+                                            id="input-group-dropdown-1"
+                                        >
                                         <Calendar
-                                            onDateChange={this.onDateChange}
-                                            value={this.state.date}
-                                        />
-                                    </Dropdown.Menu>
-                                </Dropdown>
-                            </Col>
-                       
-                            <Col xs={6}>
-                                <Dropdown>
-                                    <Dropdown.Toggle variant='info' id="dropdown-basic">
-                                        Saída
-                                    </Dropdown.Toggle>
-                                    <Dropdown.Menu style={{padding: 0}}>
-                                        <Calendar
-                                            onDateChange={this.onDateChange}
-                                            value={this.state.date}
-                                        />
-                                    </Dropdown.Menu>
-                                </Dropdown>
-                            </Col>
-                        </Row>
-                    </Form.Group>
-                </Row>
+                                                onDateChange={this.onDateChange}
+                                                value={this.state.date}
+                                                onClickDay={this.setDate}
+                                                
+                                            />   
+                                        </DropdownButton>
+                                        <Form.Control aria-describedby="basic-addon1" type="text" value={this.state.selectDateIn}/>
+                                    </InputGroup>
 
-                <Row>
-                    <Form.Group controlId="formPessoasQuantidade">
+                                    {/* <Dropdown>
+                                        <Dropdown.Toggle variant='info' id="dropdown-basic">
+                                            Entrada
+                                                </Dropdown.Toggle>
+                                        <Dropdown.Menu style={{ padding: 0 }}>
+                                        <Calendar
+                                                onDateChange={this.onDateChange}
+                                                value={this.state.date}
+                                            /> 
+                                        </Dropdown.Menu>
+                                    </Dropdown> */}
+                                    
+                                </Col>
+
+                                <Col xs lg={3}>
+                                    <Dropdown>
+                                        <Dropdown.Toggle variant='info' id="dropdown-basic">
+                                            Saída
+                                                </Dropdown.Toggle>
+                                        <Dropdown.Menu style={{ padding: 0 }}>
+                                            <Calendar
+                                                onDateChange={this.onDateChange}
+                                                value={this.state.date}
+                                            />
+                                        </Dropdown.Menu>
+                                    </Dropdown>
+                                </Col>
+
+                            </Row>
+                        </Form.Group>
+
+
+
                         <Dropdown>
                             <Dropdown.Toggle variant='info' id="dropdown-basic">
                                 Pessoas
-                            </Dropdown.Toggle>
+                                    </Dropdown.Toggle>
 
                             <Dropdown.Menu style={{ width: 250 }}>
                                 <Row>
@@ -154,12 +189,14 @@ class FormDeProcura extends React.Component {
                             </Dropdown.Menu>
 
                         </Dropdown>
-                    </Form.Group>
-                </Row>
 
-            </Container>
+
+
+                    </Form>
+                </Container>
+            </div>
         )
     }
 }
 
-export default FormDeProcura
+export default SearchForm
