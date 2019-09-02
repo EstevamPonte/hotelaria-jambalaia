@@ -1,6 +1,9 @@
 import React from 'react'
 import { Form, Container, Row, Dropdown, Button, Col, InputGroup, DropdownButton} from 'react-bootstrap';
-import Calendar from 'react-calendar'
+import Destiny from './Destiny';
+import Data from './Date';
+import { CarrosselAnimado } from './CarrosselAnimado';
+
 class SearchForm extends React.Component {
     constructor(props) {
         super(props);
@@ -8,8 +11,6 @@ class SearchForm extends React.Component {
             adultos: 0,
             crianca: 0,
             bebes: 0,
-            date: new Date(),
-            selectDateIn: ""
         }
     }
 
@@ -67,14 +68,7 @@ class SearchForm extends React.Component {
         })
     }
 
-    setDate = (year) => {
-        // this.setState({
-        //     selectDateIn: value
-        // })
-        console.log()
-    }
 
-    onDateChange = date => this.setState({ date })
 
     render() {
 
@@ -88,109 +82,48 @@ class SearchForm extends React.Component {
                         </Col>
                     </Row>
                     <Form>
-                        <Form.Group controlId="formLocal">
-                            <Row className="justify-content-md-center">
-                                <Col md="auto">
-                                    <Form.Label>Local</Form.Label>
-                                    <Form.Control label='Local' size="lg" type="text" placeholder="Escolha seu destino"></Form.Control>
-                                </Col>
-                            </Row>
-                        </Form.Group>
-                        <Form.Group controlId="FormCalendar">
-
-                            <Row className="justify-content-md-center">
-                                <Col xs lg={3}>
-                                    <InputGroup className="mb-3">
-                                        <DropdownButton
-                                            as={InputGroup.Prepend}
-                                            variant="outline-secondary"
-                                            title="Dropdown"
-                                            id="input-group-dropdown-1"
-                                        >
-                                        <Calendar
-                                                onDateChange={this.onDateChange}
-                                                value={this.state.date}
-                                                onClickDay={this.setDate}
-                                                
-                                            />   
-                                        </DropdownButton>
-                                        <Form.Control aria-describedby="basic-addon1" type="text" value={this.state.selectDateIn}/>
-                                    </InputGroup>
-
-                                    {/* <Dropdown>
-                                        <Dropdown.Toggle variant='info' id="dropdown-basic">
-                                            Entrada
-                                                </Dropdown.Toggle>
-                                        <Dropdown.Menu style={{ padding: 0 }}>
-                                        <Calendar
-                                                onDateChange={this.onDateChange}
-                                                value={this.state.date}
-                                            /> 
-                                        </Dropdown.Menu>
-                                    </Dropdown> */}
+                        <Destiny/>
+                        <Data/>
+                        <Row className="justify-content-md-center">
+                            <Col md="auto">
+                                <DropdownButton size="sm" variant="outline-secondary" title="Pessoas">
                                     
-                                </Col>
+                                        <Row>
+                                            <Col xs={6}>
+                                                <Dropdown.Item disabled style={{ width: 200 }} key="3">Adultos</Dropdown.Item>
+                                            </Col>
+                                            <Col xs={6}>
+                                                <Button style={{ marginRight: 10 }} size="sm" onClick={this.diminuirAdulto} variant="outline-primary">-</Button>
+                                                {this.state.adultos}
+                                                <Button style={{ marginLeft: 10 }} size="sm" onClick={this.somarAdulto} variant="outline-primary">+</Button>
+                                            </Col>
+                                        </Row>
+                                        <Row>
+                                            <Col xs={6}>
+                                                <Dropdown.Item disabled key="2">Crianças</Dropdown.Item>
+                                            </Col>
+                                            <Col>
+                                                <Button style={{ marginRight: 10 }} size="sm" onClick={this.diminuirCrianca} variant="outline-primary">-</Button>
+                                                {this.state.crianca}
+                                                <Button style={{ marginLeft: 10 }} size="sm" onClick={this.somarCrianca} variant="outline-primary">+</Button>
+                                            </Col>
+                                        </Row>
+                                        <Row>
+                                            <Col xs={6}>
+                                                <Dropdown.Item disabled key="3">Bebês</Dropdown.Item>
+                                            </Col>
+                                            <Col>
+                                                <Button style={{ marginRight: 10 }} size="sm" onClick={this.diminuirBebes} variant="outline-primary">-</Button>
+                                                {this.state.bebes}
+                                                <Button style={{ marginLeft: 10 }} size="sm" onClick={this.somarBebes} variant="outline-primary">+</Button>
+                                            </Col>
+                                        </Row>
+                                    
 
-                                <Col xs lg={3}>
-                                    <Dropdown>
-                                        <Dropdown.Toggle variant='info' id="dropdown-basic">
-                                            Saída
-                                                </Dropdown.Toggle>
-                                        <Dropdown.Menu style={{ padding: 0 }}>
-                                            <Calendar
-                                                onDateChange={this.onDateChange}
-                                                value={this.state.date}
-                                            />
-                                        </Dropdown.Menu>
-                                    </Dropdown>
-                                </Col>
-
-                            </Row>
-                        </Form.Group>
-
-
-
-                        <Dropdown>
-                            <Dropdown.Toggle variant='info' id="dropdown-basic">
-                                Pessoas
-                                    </Dropdown.Toggle>
-
-                            <Dropdown.Menu style={{ width: 250 }}>
-                                <Row>
-                                    <Col xs={6}>
-                                        <Dropdown.Item disabled style={{ width: 200 }} key="3">Adultos</Dropdown.Item>
-                                    </Col>
-                                    <Col xs={6}>
-                                        <Button style={{ marginRight: 10 }} size="sm" onClick={this.diminuirAdulto} variant="outline-primary">-</Button>
-                                        {this.state.adultos}
-                                        <Button style={{ marginLeft: 10 }} size="sm" onClick={this.somarAdulto} variant="outline-primary">+</Button>
-                                    </Col>
-                                </Row>
-                                <Row>
-                                    <Col xs={6}>
-                                        <Dropdown.Item disabled key="2">Crianças</Dropdown.Item>
-                                    </Col>
-                                    <Col>
-                                        <Button style={{ marginRight: 10 }} size="sm" onClick={this.diminuirCrianca} variant="outline-primary">-</Button>
-                                        {this.state.crianca}
-                                        <Button style={{ marginLeft: 10 }} size="sm" onClick={this.somarCrianca} variant="outline-primary">+</Button>
-                                    </Col>
-                                </Row>
-                                <Row>
-                                    <Col xs={6}>
-                                        <Dropdown.Item disabled key="3">Bebês</Dropdown.Item>
-                                    </Col>
-                                    <Col>
-                                        <Button style={{ marginRight: 10 }} size="sm" onClick={this.diminuirBebes} variant="outline-primary">-</Button>
-                                        {this.state.bebes}
-                                        <Button style={{ marginLeft: 10 }} size="sm" onClick={this.somarBebes} variant="outline-primary">+</Button>
-                                    </Col>
-                                </Row>
-                            </Dropdown.Menu>
-
-                        </Dropdown>
-
-
+                                </DropdownButton>
+                            </Col>
+                        </Row>
+                                <CarrosselAnimado/>
 
                     </Form>
                 </Container>
