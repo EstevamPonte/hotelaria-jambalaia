@@ -123,9 +123,8 @@ class SearchForm extends React.Component {
                                 </DropdownButton>
                             </Col>
                         </Row>
-                                <CarrosselAnimado/>
-
                     </Form>
+                    <CarrosselAnimado/>
                 </Container>
             </div>
         )

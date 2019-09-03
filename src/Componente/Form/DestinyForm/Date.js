@@ -12,8 +12,11 @@ class Data extends Component {
     }
 
     setDate = (value) => {
+        let valor = String(value)
+        let resultado = valor.split(" ")
+        let dias = `${resultado[0]} ${resultado[2]}/${resultado[1]}/${resultado[3]}`
         this.setState({
-            selectDateIn: value
+            selectDateIn: dias
         })
     }
 
@@ -39,7 +42,7 @@ class Data extends Component {
 
                                 />
                             </DropdownButton>
-                            <Form.Control aria-describedby="basic-addon1" type="text" value={this.state.selectDateIn} size="sm"/>
+                            <Form.Control aria-describedby="basic-addon1" type="text" value={this.state.selectDateIn} size="sm" readOnly/>
                         </InputGroup>
                     </Col>
 
@@ -60,7 +63,7 @@ class Data extends Component {
 
                                 />
                             </DropdownButton>
-                            <Form.Control aria-describedby="basic-addon1" type="text" value={this.state.selectDateIn} size="sm"/>
+                            <Form.Control aria-describedby="basic-addon1" type="text" value={this.state.selectDateIn} size="sm" readOnly/>
                         </InputGroup>
                     </Col>
 
