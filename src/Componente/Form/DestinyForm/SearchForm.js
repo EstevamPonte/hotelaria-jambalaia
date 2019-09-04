@@ -1,5 +1,5 @@
 import React from 'react'
-import { Form, Container, Row, Dropdown, Button, Col, InputGroup, DropdownButton} from 'react-bootstrap';
+import { Form, Container, Row, Dropdown, Button, Col, DropdownButton} from 'react-bootstrap';
 import Destiny from './Destiny';
 import Data from './Date';
 import { CarrosselAnimado } from './CarrosselAnimado';

@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Form, Row, Col, InputGroup, DropdownButton, Dropdown } from 'react-bootstrap';
+import { Form, Row, Col, InputGroup, DropdownButton } from 'react-bootstrap';
 import Calendar from 'react-calendar';
 
 class Data extends Component {

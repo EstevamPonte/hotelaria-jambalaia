@@ -1,6 +1,6 @@
 import React from 'react';
-import { Image, Form, Button } from 'react-bootstrap';
-import HotelBell from '../../Utils/Images/HotelBell.jpg'
+import { Form, Button } from 'react-bootstrap';
+
 
 
 function Home() {
