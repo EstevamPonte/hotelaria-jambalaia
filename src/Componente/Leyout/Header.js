@@ -9,7 +9,7 @@ function Header() {
     const [loginModalShow, setLoginModalShow] = React.useState(false);
     const [cadastroModalShow, setCadastroModalShow] = React.useState(false);
     return (
-        <Navbar className="justify-content-between" bg="primary" variant='dark'>
+        <Navbar className="justify-content-between" bg="light" variant='light'>
             <Nav >
                 <Nav.Item>
                     <Image style={{ width: 40, height: 40 }} src={Photo} roundedCircle />
@@ -21,7 +21,7 @@ function Header() {
                 <Row>
                     <Col>
                         <ButtonToolbar>
-                            <Button variant="primary" onClick={() => setLoginModalShow(true)}>
+                            <Button variant="outline-info" onClick={() => setLoginModalShow(true)}>
                                 Login
                             </Button>
 

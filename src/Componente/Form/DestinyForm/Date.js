@@ -30,7 +30,7 @@ class Data extends Component {
                         <InputGroup className="mb-3">
                             <DropdownButton
                                 as={InputGroup.Prepend}
-                                variant="outline-secondary"
+                                variant="outline-info"
                                 title="Check-in"
                                 id="input-group-dropdown-1"
                                 size="sm"
@@ -51,7 +51,7 @@ class Data extends Component {
                     <InputGroup className="mb-3">
                             <DropdownButton
                                 as={InputGroup.Prepend}
-                                variant="outline-secondary"
+                                variant="outline-info"
                                 title="Check-out"
                                 id="input-group-dropdown-1"
                                 size="sm"

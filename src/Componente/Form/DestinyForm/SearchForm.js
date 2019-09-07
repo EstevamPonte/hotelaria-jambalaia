@@ -1,5 +1,5 @@
 import React from 'react'
-import { Form, Container, Row, Dropdown, Button, Col, DropdownButton} from 'react-bootstrap';
+import { Form, Container, Row, Dropdown, Button, Col, DropdownButton, Jumbotron} from 'react-bootstrap';
 import Destiny from './Destiny';
 import Data from './Date';
 import { CarrosselAnimado } from './CarrosselAnimado';
@@ -74,57 +74,58 @@ class SearchForm extends React.Component {
 
         return (
             <div>
-                
                 <Container>
-                    <Row className="justify-content-md-center">
-                        <Col md="auto">
-                            <h1 >Escolha seu destino</h1>
-                        </Col>
-                    </Row>
-                    <Form>
-                        <Destiny/>
-                        <Data/>
+                    <Jumbotron>
                         <Row className="justify-content-md-center">
                             <Col md="auto">
-                                <DropdownButton size="sm" variant="outline-secondary" title="Pessoas">
-                                    
-                                        <Row>
-                                            <Col xs={6}>
-                                                <Dropdown.Item disabled style={{ width: 200 }} key="3">Adultos</Dropdown.Item>
-                                            </Col>
-                                            <Col xs={6}>
-                                                <Button style={{ marginRight: 10 }} size="sm" onClick={this.diminuirAdulto} variant="outline-primary">-</Button>
-                                                {this.state.adultos}
-                                                <Button style={{ marginLeft: 10 }} size="sm" onClick={this.somarAdulto} variant="outline-primary">+</Button>
-                                            </Col>
-                                        </Row>
-                                        <Row>
-                                            <Col xs={6}>
-                                                <Dropdown.Item disabled key="2">Crianças</Dropdown.Item>
-                                            </Col>
-                                            <Col>
-                                                <Button style={{ marginRight: 10 }} size="sm" onClick={this.diminuirCrianca} variant="outline-primary">-</Button>
-                                                {this.state.crianca}
-                                                <Button style={{ marginLeft: 10 }} size="sm" onClick={this.somarCrianca} variant="outline-primary">+</Button>
-                                            </Col>
-                                        </Row>
-                                        <Row>
-                                            <Col xs={6}>
-                                                <Dropdown.Item disabled key="3">Bebês</Dropdown.Item>
-                                            </Col>
-                                            <Col>
-                                                <Button style={{ marginRight: 10 }} size="sm" onClick={this.diminuirBebes} variant="outline-primary">-</Button>
-                                                {this.state.bebes}
-                                                <Button style={{ marginLeft: 10 }} size="sm" onClick={this.somarBebes} variant="outline-primary">+</Button>
-                                            </Col>
-                                        </Row>
-                                    
-
-                                </DropdownButton>
+                                <h1 >Escolha seu destino</h1>
                             </Col>
                         </Row>
-                    </Form>
-                    <CarrosselAnimado/>
+                        <Form>
+                            <Destiny/>
+                            <Data/>
+                            <Row className="justify-content-md-center">
+                                <Col md="auto">
+                                    <DropdownButton size="sm" variant="outline-info" title="Pessoas">
+                                        
+                                            <Row>
+                                                <Col xs={6}>
+                                                    <Dropdown.Item disabled style={{ width: 200 }} key="3">Adultos</Dropdown.Item>
+                                                </Col>
+                                                <Col xs={6}>
+                                                    <Button style={{ marginRight: 10 }} size="sm" onClick={this.diminuirAdulto} variant="outline-primary">-</Button>
+                                                    {this.state.adultos}
+                                                    <Button style={{ marginLeft: 10 }} size="sm" onClick={this.somarAdulto} variant="outline-primary">+</Button>
+                                                </Col>
+                                            </Row>
+                                            <Row>
+                                                <Col xs={6}>
+                                                    <Dropdown.Item disabled key="2">Crianças</Dropdown.Item>
+                                                </Col>
+                                                <Col>
+                                                    <Button style={{ marginRight: 10 }} size="sm" onClick={this.diminuirCrianca} variant="outline-primary">-</Button>
+                                                    {this.state.crianca}
+                                                    <Button style={{ marginLeft: 10 }} size="sm" onClick={this.somarCrianca} variant="outline-primary">+</Button>
+                                                </Col>
+                                            </Row>
+                                            <Row>
+                                                <Col xs={6}>
+                                                    <Dropdown.Item disabled key="3">Bebês</Dropdown.Item>
+                                                </Col>
+                                                <Col>
+                                                    <Button style={{ marginRight: 10 }} size="sm" onClick={this.diminuirBebes} variant="outline-primary">-</Button>
+                                                    {this.state.bebes}
+                                                    <Button style={{ marginLeft: 10 }} size="sm" onClick={this.somarBebes} variant="outline-primary">+</Button>
+                                                </Col>
+                                            </Row>
+                                        
+
+                                    </DropdownButton>
+                                </Col>
+                            </Row>
+                        </Form>
+                        <CarrosselAnimado/>
+                    </Jumbotron>
                 </Container>
             </div>
         )
