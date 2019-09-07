@@ -7,12 +7,12 @@ const InfoModal = (props) => {
         <Modal
             {...props}
             // aria-labelledby="example-custom-modal-styling-title"
-            size="lg"
+            
         >
             <Modal.Header closeButton>
                 <Modal.Title id="example-custom-modal-styling-title">
                     Custom Modal Styling
-          </Modal.Title>
+                </Modal.Title>
             </Modal.Header>
             <Modal.Body>
                 <p>

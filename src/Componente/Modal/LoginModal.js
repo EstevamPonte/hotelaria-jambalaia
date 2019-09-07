@@ -16,6 +16,9 @@ class LoginModal extends Component {
             change: !this.state.change
         })
     }
+    ver = () => {
+        console.log( this.props.email)
+    }
     render(){
         const changeType = this.state.change ? <Login/> : <Register/>
         const changeBetween = this.state.change ? "Cadastro" : "Login" 
@@ -36,8 +39,8 @@ class LoginModal extends Component {
                     {changeType}
                 </Modal.Body>
                 <Modal.Footer>
-                    <Button onClick={this.changeTheType}>{changeBetween}</Button>
-                    <Button type="submit" variant="success">Entrar</Button>
+                    <Button onClick={this.changeTheType.bind(this)}>{changeBetween}</Button>
+                    <Button type="submit" onClick={this.ver.bind(this)} variant="success">Entrar</Button>
                 </Modal.Footer>
             </Modal>
         );

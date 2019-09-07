@@ -55,8 +55,6 @@ function Header() {
                             <InfoModal
                                 show={infoModalShow}
                                 onHide={() => setInfoModalShow(false)}
-                                dialogClassName="modal-90w"
-                                aria-labelledby="example-custom-modal-styling-title"
                             />
                         </ButtonToolbar>
                     </Col>

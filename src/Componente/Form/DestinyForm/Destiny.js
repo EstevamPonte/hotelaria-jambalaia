@@ -8,13 +8,7 @@ class Destiny extends React.Component {
     }
     render() { 
         return ( 
-            <Form.Group controlId="formLocal">
-            <Row className="justify-content-md-center">
-                <Col md="auto">
-                    <Form.Control label='Local' size="sm" type="text" placeholder="Escolha seu destino"></Form.Control>
-                </Col>
-            </Row>
-            </Form.Group>
+            <div></div>
          );
     }
 }
