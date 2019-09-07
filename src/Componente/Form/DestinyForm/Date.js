@@ -27,7 +27,7 @@ class Data extends Component {
             <Form.Group controlId="FormCalendar">
                 <Row className="justify-content-md-center">
                     <Col xs lg={3}>
-                        <InputGroup className="mb-3">
+                        <InputGroup>
                             <DropdownButton
                                 as={InputGroup.Prepend}
                                 variant="outline-info"
@@ -48,7 +48,7 @@ class Data extends Component {
 
                     <Col xs lg={3}>
 
-                    <InputGroup className="mb-3">
+                    <InputGroup>
                             <DropdownButton
                                 as={InputGroup.Prepend}
                                 variant="outline-info"

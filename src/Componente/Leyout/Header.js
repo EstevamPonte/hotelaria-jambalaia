@@ -3,11 +3,13 @@ import { Navbar, NavbarBrand, Nav, Image, ButtonToolbar, Button, Row, Col } from
 import Photo from '../../Utils/Images/campainha-de-mesa.png'
 import LoginModal from '../Modal/LoginModal'
 import CadastrarModal from '../Modal/CadastroModal'
+import InfoModal from '../Modal/InfoModal'
 
 
 function Header() {
     const [loginModalShow, setLoginModalShow] = React.useState(false);
     const [cadastroModalShow, setCadastroModalShow] = React.useState(false);
+    const [infoModalShow, setInfoModalShow] = React.useState(false);
     return (
         <Navbar className="justify-content-between" bg="light" variant='light'>
             <Nav >
@@ -41,6 +43,20 @@ function Header() {
                             <CadastrarModal
                                 show={cadastroModalShow}
                                 onHide={() => setCadastroModalShow(false)}
+                            />
+                        </ButtonToolbar>
+                    </Col>
+                    <Col>
+                        <ButtonToolbar>
+                            <Button variant="primary" onClick={() => setInfoModalShow(true)}>
+                                Info
+                            </Button>
+
+                            <InfoModal
+                                show={infoModalShow}
+                                onHide={() => setInfoModalShow(false)}
+                                dialogClassName="modal-90w"
+                                aria-labelledby="example-custom-modal-styling-title"
                             />
                         </ButtonToolbar>
                     </Col>
