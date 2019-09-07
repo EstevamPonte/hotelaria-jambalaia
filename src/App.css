@@ -22,7 +22,13 @@
   font-size: calc(10px + 2vmin);
   color: white;
 }
+.Brand {
+  margin-left: 1rem;
+}
 
+h1{
+  color: #007bff
+}
 .App-link {
   color: #61dafb;
 }

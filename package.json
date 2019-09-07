@@ -5,8 +5,12 @@
   "dependencies": {
     "axios": "^0.19.0",
     "bootstrap": "^4.3.1",
+<<<<<<< HEAD
     "font-awesome": "^4.7.0",
     "prop-types": "^15.7.2",
+=======
+    "formik": "^1.5.8",
+>>>>>>> master
     "react": "^16.9.0",
     "react-bootstrap": "^1.0.0-beta.11",
     "react-calendar": "^2.19.1",
