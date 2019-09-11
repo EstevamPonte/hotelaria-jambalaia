@@ -2,6 +2,10 @@ import React from 'react'
 import { Form, Container, Row, Dropdown, Button, Col, DropdownButton, Jumbotron,InputGroup } from 'react-bootstrap';
 import { CarrosselAnimado } from './CarrosselAnimado';
 import Calendar from 'react-calendar';
+import PlacesAutocomplete, {
+    geocodeByAddress,
+    getLatLng,
+  } from 'react-places-autocomplete';
 
 class SearchForm extends React.Component {
     constructor(props) {
@@ -12,8 +16,13 @@ class SearchForm extends React.Component {
             bebes: 0,
             date: new Date(),
             selectDateIn: "",
+            address: "",
         }
     }
+
+    handleChange = address => {
+        this.setState({ address });
+    };
 
     diminuirAdulto = (event) => {
         // event.preventDefault()
@@ -81,7 +90,12 @@ class SearchForm extends React.Component {
 
     onDateChange = date => this.setState({ date })
 
-
+    handleSelect = address => {
+        geocodeByAddress(address)
+          .then(results => getLatLng(results[0]))
+          .then(latLng => console.log('Success', latLng))
+          .catch(error => console.error('Error', error));
+      };
 
     render() {
 
@@ -99,7 +113,45 @@ class SearchForm extends React.Component {
                             <Form.Group controlId="formLocal">
                                 <Row className="justify-content-md-center">
                                     <Col md="auto">
-                                        <Form.Control label='Local' size="sm" type="text" placeholder="Escolha seu destino"></Form.Control>
+                                        
+                                        <PlacesAutocomplete
+                                            value={this.state.address}
+                                            onChange={this.handleChange}
+                                            onSelect={this.handleSelect}
+                                        >
+                                            {({ getInputProps, suggestions, getSuggestionItemProps, loading }) => (
+                                            <div>
+                                                <Form.Control
+                                                {...getInputProps({
+                                                    placeholder: 'Search Places ...',
+                                                    className: 'location-search-input',
+                                                })}
+                                                />
+                                                <div className="autocomplete-dropdown-container">
+                                                {loading && <div>Loading...</div>}
+                                                {suggestions.map(suggestion => {
+                                                    const className = suggestion.active
+                                                    ? 'suggestion-item--active'
+                                                    : 'suggestion-item';
+                                                    // inline style for demonstration purpose
+                                                    const style = suggestion.active
+                                                    ? { backgroundColor: '#fafafa', cursor: 'pointer' }
+                                                    : { backgroundColor: '#ffffff', cursor: 'pointer' };
+                                                    return (
+                                                    <div
+                                                        {...getSuggestionItemProps(suggestion, {
+                                                        className,
+                                                        style,
+                                                        })}
+                                                    >
+                                                        <span>{suggestion.description}</span>
+                                                    </div>
+                                                    );
+                                                })}
+                                                </div>
+                                            </div>
+                                            )}
+                                        </PlacesAutocomplete>
                                     </Col>
                                 </Row>
                             </Form.Group>
