@@ -1,5 +1,5 @@
 import React from 'react'
-import { Form, Container, Row, Dropdown, Button, Col, DropdownButton, Jumbotron,InputGroup } from 'react-bootstrap';
+import { Form, Container, Row, Dropdown, Button, Col, DropdownButton, Jumbotron,InputGroup, ListGroup } from 'react-bootstrap';
 import { CarrosselAnimado } from './CarrosselAnimado';
 import Calendar from 'react-calendar';
 import PlacesAutocomplete, {
@@ -20,7 +20,8 @@ class SearchForm extends React.Component {
         }
     }
 
-    handleChange = address => {
+    handleChange =  address => {
+        
         this.setState({ address });
     };
 
@@ -95,7 +96,7 @@ class SearchForm extends React.Component {
           .then(results => getLatLng(results[0]))
           .then(latLng => console.log('Success', latLng))
           .catch(error => console.error('Error', error));
-      };
+        };
 
     render() {
 
@@ -108,9 +109,9 @@ class SearchForm extends React.Component {
                                 <h1 >Escolha seu destino</h1>
                             </Col>
                         </Row>
-                        <Form>
+                        <Form style={{zIndex: 1}}>
                             {/* Form de destino */}
-                            <Form.Group controlId="formLocal">
+                            <Form.Group controlId="formLocal" >
                                 <Row className="justify-content-md-center">
                                     <Col md="auto">
                                         
@@ -118,34 +119,38 @@ class SearchForm extends React.Component {
                                             value={this.state.address}
                                             onChange={this.handleChange}
                                             onSelect={this.handleSelect}
+                                            
                                         >
                                             {({ getInputProps, suggestions, getSuggestionItemProps, loading }) => (
                                             <div>
                                                 <Form.Control
+                                                size="sm"
                                                 {...getInputProps({
-                                                    placeholder: 'Search Places ...',
+                                                    placeholder: 'Digite um destino...',
                                                     className: 'location-search-input',
                                                 })}
                                                 />
-                                                <div className="autocomplete-dropdown-container">
-                                                {loading && <div>Loading...</div>}
+                                                <div style={{zIndex: 2, position: "absolute"}}  className="autocomplete-dropdown-container">
+                                                {console.log(suggestions)}
                                                 {suggestions.map(suggestion => {
+                                                    
                                                     const className = suggestion.active
                                                     ? 'suggestion-item--active'
                                                     : 'suggestion-item';
                                                     // inline style for demonstration purpose
+                                                
                                                     const style = suggestion.active
-                                                    ? { backgroundColor: '#fafafa', cursor: 'pointer' }
-                                                    : { backgroundColor: '#ffffff', cursor: 'pointer' };
+                                                    ? { backgroundColor: '#fafafa', cursor: 'pointer'}
+                                                    : { backgroundColor: '#ffffff', cursor: 'pointer'};
                                                     return (
-                                                    <div
+                                                    <ListGroup
                                                         {...getSuggestionItemProps(suggestion, {
                                                         className,
                                                         style,
                                                         })}
                                                     >
-                                                        <span>{suggestion.description}</span>
-                                                    </div>
+                                                        <ListGroup.Item >{suggestion.formattedSuggestion.mainText}</ListGroup.Item>
+                                                    </ListGroup>
                                                     );
                                                 })}
                                                 </div>
@@ -157,7 +162,7 @@ class SearchForm extends React.Component {
                             </Form.Group>
 
                             {/* Calentadarios */}
-                            <Form.Group controlId="FormCalendar">
+                            <Form.Group controlId="FormCalendar"  >
                                 <Row className="justify-content-md-center">
                                     <Col xs lg={3}>
                                         <InputGroup>

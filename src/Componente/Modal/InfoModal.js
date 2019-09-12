@@ -6,8 +6,9 @@ const InfoModal = (props) => {
     return (
         <Modal
             {...props}
-            // aria-labelledby="example-custom-modal-styling-title"
-            
+            dialogClassName="modal-90w"
+            aria-labelledby="example-custom-modal-styling-title"
+            size="lg"
         >
             <Modal.Header closeButton>
                 <Modal.Title id="example-custom-modal-styling-title">
