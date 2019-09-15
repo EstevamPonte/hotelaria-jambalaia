@@ -1,5 +1,5 @@
 import React from 'react'
-import { Form, Container, Row, Dropdown, Button, Col, DropdownButton, Jumbotron,InputGroup, ListGroup } from 'react-bootstrap';
+import { Form, Container, Row, Dropdown, Alert, Button, Col, DropdownButton, Jumbotron,InputGroup, ListGroup } from 'react-bootstrap';
 import { CarrosselAnimado } from './CarrosselAnimado';
 import Calendar from 'react-calendar';
 import PlacesAutocomplete, {
@@ -180,18 +180,19 @@ class SearchForm extends React.Component {
 
                                                 />
                                             </DropdownButton>
-                                            <Form.Control aria-describedby="basic-addon1" type="text" value={this.state.selectDateIn} size="sm" readOnly />
+                                            <Form.Control placeholder="--/--/----" aria-describedby="basic-addon1" type="text" value={this.state.selectDateIn} size="sm" readOnly />
                                         </InputGroup>
                                     </Col>
                                     <Col xs lg={3}>
                                         <InputGroup>
-                                            <Form.Control aria-describedby="basic-addon1" type="text" value={this.state.selectDateIn} size="sm" readOnly />
+                                            <Form.Control placeholder="--/--/----" aria-describedby="basic-addon1" type="text" value={this.state.selectDateIn} size="sm" readOnly />
                                             <DropdownButton
                                                 as={InputGroup.Prepend}
                                                 variant="outline-info"
                                                 title="Check-out"
                                                 id="input-group-dropdown-1"
                                                 size="sm"
+                                                
                                             >
                                                 <Calendar
                                                     onDateChange={this.onDateChange}
@@ -208,45 +209,37 @@ class SearchForm extends React.Component {
                             </Form.Group>
 
                             {/* Form de pessoas */}
-                            <Form.Group>
+                            
                                 <Row className="justify-content-md-center">
-                                    <Col md="auto">
-                                        <DropdownButton size="sm" variant="outline-info" title="Pessoas">
-                                            <Row>
-                                                <Col xs={6}>
-                                                    <Dropdown.Item disabled style={{ width: 200 }} key="3">Adultos</Dropdown.Item>
-                                                </Col>
-                                                <Col xs={6}>
-                                                    <Button style={{ marginRight: 10 }} size="sm" onClick={this.diminuirAdulto} variant="outline-primary">-</Button>
-                                                    {this.state.adultos}
-                                                    <Button style={{ marginLeft: 10 }} size="sm" onClick={this.somarAdulto} variant="outline-primary">+</Button>
-                                                </Col>
-                                            </Row>
-                                            <Row>
-                                                <Col xs={6}>
-                                                    <Dropdown.Item disabled key="2">Crianças</Dropdown.Item>
-                                                </Col>
-                                                <Col>
-                                                    <Button style={{ marginRight: 10 }} size="sm" onClick={this.diminuirCrianca} variant="outline-primary">-</Button>
-                                                    {this.state.crianca}
-                                                    <Button style={{ marginLeft: 10 }} size="sm" onClick={this.somarCrianca} variant="outline-primary">+</Button>
-                                                </Col>
-                                            </Row>
-                                            <Row>
-                                                <Col xs={6}>
-                                                    <Dropdown.Item disabled key="3">Bebês</Dropdown.Item>
-                                                </Col>
-                                                <Col>
-                                                    <Button style={{ marginRight: 10 }} size="sm" onClick={this.diminuirBebes} variant="outline-primary">-</Button>
-                                                    {this.state.bebes}
-                                                    <Button style={{ marginLeft: 10 }} size="sm" onClick={this.somarBebes} variant="outline-primary">+</Button>
-                                                </Col>
-                                            </Row>
-                                        </DropdownButton>
-                                    </Col>
+                                        <Col md="auto" >
+                                            <Alert key="1" variant="primary">
+                                                <h6 style={{textAlign: "center"}}>Adultos</h6>
+                                                <Button style={{ marginRight: 10 }} size="sm" onClick={this.diminuirAdulto} variant="outline-primary">-</Button>
+                                                {this.state.adultos}
+                                                <Button style={{ marginLeft: 10 }} size="sm" onClick={this.somarAdulto} variant="outline-primary">+</Button>
+                                            </Alert>
+                                        </Col>
+                                    
+                                        <Col md="auto">
+                                            <Alert key="2" variant="primary">
+                                                <h6 style={{textAlign: "center"}}>Crianças</h6>
+                                                <Button style={{ marginRight: 10 }} size="sm" onClick={this.diminuirCrianca} variant="outline-primary">-</Button>
+                                                {this.state.crianca}
+                                                <Button style={{ marginLeft: 10 }} size="sm" onClick={this.somarCrianca} variant="outline-primary">+</Button>
+                                            </Alert>
+                                        </Col>
+                                    
+                                        <Col md="auto">
+                                            <Alert key="3" variant="primary">
+                                                <h6 style={{textAlign: "center"}}>Bebês</h6>
+                                                <Button style={{ marginRight: 10 }} size="sm" onClick={this.diminuirBebes} variant="outline-primary">-</Button>
+                                                {this.state.bebes}
+                                                <Button style={{ marginLeft: 10 }} size="sm" onClick={this.somarBebes} variant="outline-primary">+</Button>
+                                            </Alert>
+                                        </Col>
                                 </Row>
-                            </Form.Group>
-                            <Button variant="primary" size="sm" block>Procurar</Button>
+                            
+                            <Button variant="primary" md="6" size="sm" block>Procurar</Button>
                         </Form>
 
                         {/* <CarrosselAnimado/> */}
