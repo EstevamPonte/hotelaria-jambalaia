@@ -19,14 +19,13 @@ class Register extends Component {
         this.setState({
             [name]: value
         })
+        console.log(this.state.email)
     }
 
-    handleSubmit = (event) => {
-        event.preventDefault()
-    }
+    
     render(){
         return(
-            <Form onSubmit={this.handleSubmit}>
+            <div>
                 <Form.Row>
                     <Form.Group as={Col} controlId="formGridEmail">
                         <Form.Label>Email</Form.Label>
@@ -51,7 +50,7 @@ class Register extends Component {
                         <Form.Control type="text" name="celular" value={this.state.celular} onChange={this.handleChange.bind(this)} placeholder="Celular" />
                     </Form.Group>
                 </Form.Row>
-            </Form>
+            </div>
         )
     }
 }

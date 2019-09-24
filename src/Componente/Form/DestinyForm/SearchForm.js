@@ -103,7 +103,7 @@ class SearchForm extends React.Component {
         return (
             <div>
                 <Container>
-                    <Jumbotron>
+                    <Jumbotron fluid="true">
                         <Row className="justify-content-md-center">
                             <Col md="auto">
                                 <h1 >Escolha seu destino</h1>
@@ -238,13 +238,18 @@ class SearchForm extends React.Component {
                                             </Alert>
                                         </Col>
                                 </Row>
-                            
-                            <Button variant="primary" md="6" size="sm" block>Procurar</Button>
+                            <Row className="justify-content-md-center">
+                                <Col md={{ span: 4, offset: "auto" }}>
+                                    <Button variant="primary" block>Procurar</Button>
+                                </Col>
+                            </Row>
                         </Form>
 
-                        {/* <CarrosselAnimado/> */}
                     </Jumbotron>
                 </Container>
+                {/* <div>
+                    <CarrosselAnimado/>
+                </div> */}
             </div>
         )
     }

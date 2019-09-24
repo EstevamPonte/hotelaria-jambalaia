@@ -24,7 +24,7 @@ class Login extends Component{
     }
     render(){
         return(
-            <Form onSubmit={this.handleSubmit.bind(this)}>
+            <div>
                 <Form.Group controlId="formGridEmail">
                     <Form.Label >Email</Form.Label>
                     <Form.Control type="text" name="email" placeholder="Digite seu email" value={this.state.email} onChange={this.handleChange.bind(this)}/>
@@ -33,7 +33,8 @@ class Login extends Component{
                     <Form.Label>Senha</Form.Label>
                     <Form.Control type="password" name="senha" value={this.state.senha} onChange={this.handleChange.bind(this)} placeholder="Senha" />
                 </Form.Group>
-            </Form>
+            </div>
+            
         )
     }
 }

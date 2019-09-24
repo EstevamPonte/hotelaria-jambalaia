@@ -1,27 +1,47 @@
 import React, {Component} from 'react';
-import { Modal, Button } from 'react-bootstrap'
-import Register from '../Form/CadastroELoginForm/Register'
-import Login from '../Form/CadastroELoginForm/Login'
+import { Modal, Button, Form } from 'react-bootstrap'
+import * as Config from '../../config/constants'
+import axios from 'axios'
 
 
 class LoginModal extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            change: true,
-        }
+            email: '',
+            senha: ''
+        };
+      }
+    
+      postLogin(login){
+        axios.post(Config.URL + "login", login)
+            .then(resp => {
+                alert(`${resp.data.message}`)
+                this.props.onHide()
+            })
+            .catch(erro => {
+                console.log(erro)
+            })
     }
-    changeTheType = () => {
+
+    handleChange = (event) => {
+        let name = event.target.name
+        let value = event.target.value
         this.setState({
-            change: !this.state.change
+            [name]: value
         })
     }
-    ver = () => {
-        console.log( this.props.email)
+
+    handleSubmit = (event) => {
+        event.preventDefault()
+        const login = {
+            email: this.state.email,
+            senha: this.state.senha,
+        }
+        this.postLogin(login)
     }
     render(){
-        const changeType = this.state.change ? <Login/> : <Register/>
-        const changeBetween = this.state.change ? "Cadastro" : "Login" 
+        
         return (
             <Modal
                 {...this.props}
@@ -36,11 +56,19 @@ class LoginModal extends Component {
                 </Modal.Title>
                 </Modal.Header>
                 <Modal.Body>
-                    {changeType}
+                    <Form onSubmit={this.handleSubmit}>
+                        <Form.Group controlId="formGridEmail">
+                            <Form.Label >Email</Form.Label>
+                            <Form.Control type="text" name="email" placeholder="Digite seu email" value={this.state.email} onChange={this.handleChange.bind(this)}/>
+                        </Form.Group>
+                        <Form.Group controlId="formGridPassword">
+                            <Form.Label>Senha</Form.Label>
+                            <Form.Control type="password" name="senha" value={this.state.senha} onChange={this.handleChange.bind(this)} placeholder="Senha" />
+                        </Form.Group>
+                    </Form>
                 </Modal.Body>
                 <Modal.Footer>
-                    <Button onClick={this.changeTheType.bind(this)}>{changeBetween}</Button>
-                    <Button type="submit" onClick={this.ver.bind(this)} variant="success">Entrar</Button>
+                    <Button type="submit" onClick={this.handleSubmit.bind(this)} variant="success">Entrar</Button>
                 </Modal.Footer>
             </Modal>
         );
