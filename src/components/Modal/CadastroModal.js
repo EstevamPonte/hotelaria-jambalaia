@@ -1,26 +1,35 @@
 import React, { Component } from 'react';
-import { Modal, Button, Form, Col, Alert } from 'react-bootstrap'
+import { Modal, Button, Form, Col } from 'react-bootstrap'
 import axios from 'axios'
 import * as Config from '../../config/constants'
-import { resolve } from 'url';
+
 class CadastroModal extends Component {
     constructor(props) {
         super(props);
         this.state = {
-                email: '',
-                nome: '',
-                senha: '',
-                confirmarSenha: '',
-                celular: '',
-         }
+            email: '',
+            nome: '',
+            senha: '',
+            confirmarSenha: '',
+            celular: '',
+        }
     }
 
     
     postSignUp(newUser){
         axios.post(Config.URL + "sign_up", newUser)
             .then( resp => {
-                alert(`${resp.data.message}`)
-                this.props.onHide()
+                if (resp.data.status === 800){
+                    alert(`${resp.data.message}`)
+                    console.log(resp)
+                } else if(resp.data.status === 200){
+                    alert(`${resp.data.message}`)
+                    this.props.onHide()
+                    console.log(resp)
+                } else if(resp.data.status === 300) {
+                    console.log(resp)
+                    alert(`${resp.data.message}`)
+                }
             })
             .catch(erro => {
                 console.log(erro)
@@ -96,7 +105,6 @@ class CadastroModal extends Component {
                     <Button type="submit" variant="success" onClick={this.handleSubmit.bind(this)}>Cadastrar</Button>
                 </Modal.Footer>
             </Modal>
-            
         );
     }
 }

@@ -1,16 +1,15 @@
 import React from 'react';
 import './App.css';
-import Header from './Componente/Leyout/Header'
-import Footer from './Componente/Leyout/Footer'
-import SearchForm from './Componente/Form/DestinyForm/SearchForm'
-import Testemaps from './Componente/Testemaps'
+import Header from './components/Leyout/Header'
+import Footer from './components/Leyout/Footer'
+import Routes from "./commons/Routes"
 
 
 function App() {
     return (
         <div>
             <Header />
-                <SearchForm/>
+                <Routes/>
             <Footer />
         </div>
     );

@@ -16,8 +16,16 @@ class LoginModal extends Component {
       postLogin(login){
         axios.post(Config.URL + "login", login)
             .then(resp => {
-                alert(`${resp.data.message}`)
-                this.props.onHide()
+                if(resp.data.status === 200){
+                    alert(resp.data.message)
+                    this.props.onHide()
+                }else if(resp.data.status === 300){
+                    alert(resp.data.message)
+                }else if(resp.data.status === 500){
+                    alert(resp.data.message)
+                }else if(resp.data.status === 600){
+                    alert(resp.data.message)
+                }
             })
             .catch(erro => {
                 console.log(erro)

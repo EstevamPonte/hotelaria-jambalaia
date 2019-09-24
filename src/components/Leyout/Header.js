@@ -43,12 +43,13 @@ function Header() {
                             <CadastrarModal
                                 show={cadastroModalShow}
                                 onHide={() => setCadastroModalShow(false)}
+                                onShow={() => setCadastroModalShow(true)}
                             />
                         </ButtonToolbar>
                     </Col>
                     <Col>
                         <ButtonToolbar>
-                            <Button variant="primary" onClick={() => setInfoModalShow(true)}>
+                            <Button variant="primary"  onClick={() => setInfoModalShow(true)}>
                                 Info
                             </Button>
 

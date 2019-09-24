@@ -1,6 +1,5 @@
 import React from 'react'
-import { Form, Container, Row, Dropdown, Alert, Button, Col, DropdownButton, Jumbotron,InputGroup, ListGroup } from 'react-bootstrap';
-import { CarrosselAnimado } from './CarrosselAnimado';
+import { Form, Container, Row, Alert, Button, Col, DropdownButton, Jumbotron,InputGroup, ListGroup } from 'react-bootstrap';
 import Calendar from 'react-calendar';
 import PlacesAutocomplete, {
     geocodeByAddress,
