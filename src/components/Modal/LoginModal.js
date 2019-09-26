@@ -2,6 +2,7 @@ import React, {Component} from 'react';
 import { Modal, Button, Form } from 'react-bootstrap'
 import * as Config from '../../config/constants'
 import axios from 'axios'
+import { login, validate } from '../../services/auth'
 
 
 class LoginModal extends Component {
@@ -9,15 +10,17 @@ class LoginModal extends Component {
         super(props);
         this.state = {
             email: '',
-            senha: ''
+            senha: '',
         };
       }
     
-      postLogin(login){
-        axios.post(Config.URL + "login", login)
+      postLogin(accomplishLogin){
+        axios.post(Config.URL + "login", accomplishLogin)
             .then(resp => {
                 if(resp.data.status === 200){
-                    alert(resp.data.message)
+                    console.log(resp.data.Conta)
+                    login(JSON.stringify(resp.data.Conta))
+                    axios.defaults.headers.common['Authorization'] = resp.data.Conta.id
                     this.props.onHide()
                 }else if(resp.data.status === 300){
                     alert(resp.data.message)
@@ -42,15 +45,16 @@ class LoginModal extends Component {
 
     handleSubmit = (event) => {
         event.preventDefault()
-        const login = {
+        const accomplishLogin = {
             email: this.state.email,
             senha: this.state.senha,
         }
-        this.postLogin(login)
+        this.postLogin(accomplishLogin)
     }
     render(){
         
         return (
+            
             <Modal
                 {...this.props}
                 size="lg"

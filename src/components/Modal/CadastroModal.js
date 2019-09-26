@@ -12,6 +12,7 @@ class CadastroModal extends Component {
             senha: '',
             confirmarSenha: '',
             celular: '',
+            cidade: ''
         }
     }
 
@@ -50,7 +51,7 @@ class CadastroModal extends Component {
             nome: this.state.nome,
             email: this.state.email,
             telefone: this.state.celular,
-            cidade: "Fortaleza",
+            cidade: this.state.cidade,
             senha: this.state.senha,
         }
         this.postSignUp(newUser)
@@ -83,13 +84,17 @@ class CadastroModal extends Component {
                                 <Form.Label>Nome completo</Form.Label>
                                 <Form.Control type="text" name="nome" value={this.state.nome} onChange={this.handleChange} placeholder="Digite seu nome completo" />
                             </Form.Group>
+                            <Form.Group as={Col} controlId="formGridCity">
+                                <Form.Label>Cidade</Form.Label>
+                                <Form.Control type="text" name="cidade" value={this.state.cidade} onChange={this.handleChange} placeholder="Digite a cidade onde você mora" />
+                            </Form.Group>
                         </Form.Row>
                         <Form.Row>
                             <Form.Group as={Col} controlId="formGridPassword">
                                 <Form.Label>Senha</Form.Label>
                                 <Form.Control type="password" name="senha" value={this.state.senha} onChange={this.handleChange} placeholder="Senha" />
                             </Form.Group>
-                            <Form.Group as={Col} controlId="formGridPassword">
+                            <Form.Group as={Col} controlId="formGridConfirmPassword">
                                 <Form.Label>Confirmar senha</Form.Label>
                                 <Form.Control type="password" name="confirmarSenha" value={this.state.confirmarSenha} onChange={this.handleChange} placeholder="Confirmar senha" />
                             </Form.Group>

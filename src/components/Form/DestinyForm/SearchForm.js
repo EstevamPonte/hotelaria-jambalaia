@@ -6,6 +6,7 @@ import PlacesAutocomplete, {
     getLatLng,
   } from 'react-places-autocomplete';
 
+
 class SearchForm extends React.Component {
     constructor(props) {
         super(props);
@@ -161,7 +162,7 @@ class SearchForm extends React.Component {
                             </Form.Group>
 
                             {/* Calentadarios */}
-                            <Form.Group controlId="FormCalendar"  >
+                            <Form.Group>
                                 <Row className="justify-content-md-center">
                                     <Col xs lg={3}>
                                         <InputGroup>
@@ -179,17 +180,17 @@ class SearchForm extends React.Component {
 
                                                 />
                                             </DropdownButton>
-                                            <Form.Control placeholder="--/--/----" aria-describedby="basic-addon1" type="text" value={this.state.selectDateIn} size="sm" readOnly />
+                                            <Form.Control id="inputCalendar1" placeholder="--/--/----" aria-describedby="basic-addon1" type="text" value={this.state.selectDateIn} size="sm" readOnly />
                                         </InputGroup>
                                     </Col>
                                     <Col xs lg={3}>
                                         <InputGroup>
-                                            <Form.Control placeholder="--/--/----" aria-describedby="basic-addon1" type="text" value={this.state.selectDateIn} size="sm" readOnly />
+                                            <Form.Control id="inputCalendar2" placeholder="--/--/----" aria-describedby="basic-addon1" type="text" value={this.state.selectDateIn} size="sm" readOnly />
                                             <DropdownButton
                                                 as={InputGroup.Prepend}
                                                 variant="outline-info"
                                                 title="Check-out"
-                                                id="input-group-dropdown-1"
+                                                id="input-group-dropdown-2"
                                                 size="sm"
                                                 
                                             >
@@ -249,6 +250,7 @@ class SearchForm extends React.Component {
                 {/* <div>
                     <CarrosselAnimado/>
                 </div> */}
+                
             </div>
         )
     }
