@@ -3,13 +3,11 @@ import { Navbar, NavbarBrand, Nav, Image, ButtonToolbar, Button, Row, Col } from
 import Photo from '../../Utils/Images/campainha-de-mesa.png'
 import LoginModal from '../Modal/LoginModal'
 import CadastrarModal from '../Modal/CadastroModal'
-import InfoModal from '../Modal/InfoModal'
 import { isAuthenticated, logout } from '../../services/auth'
 
 function Header() {
     const [loginModalShow, setLoginModalShow] = useState(false);
     const [cadastroModalShow, setCadastroModalShow] = useState(false);
-    const [infoModalShow, setInfoModalShow] = useState(false);
     const [login, setLogin] = useState(false)
 
     const deslogar = (event) =>{
@@ -20,18 +18,6 @@ function Header() {
 
     const autenticacao = isAuthenticated() ?
     <Row>
-        <Col>
-            <ButtonToolbar>
-                <Button variant="primary"  onClick={() => setInfoModalShow(true)}>
-                    Info
-                </Button>
-
-                <InfoModal
-                    show={infoModalShow}
-                    onHide={() => setInfoModalShow(false)}
-                />
-            </ButtonToolbar>
-        </Col>
         <Col>
             <Button variant="primary"  onClick={deslogar}>
                 Logout
