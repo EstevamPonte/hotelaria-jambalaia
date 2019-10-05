@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Navbar, NavbarBrand, Nav, Image, ButtonToolbar, Button, Row, Col } from 'react-bootstrap'
 import Photo from '../../Utils/Images/campainha-de-mesa.png'
 import LoginModal from '../Modal/LoginModal'
@@ -7,14 +7,17 @@ import InfoModal from '../Modal/InfoModal'
 import { isAuthenticated, logout } from '../../services/auth'
 
 function Header() {
-    const [loginModalShow, setLoginModalShow] = React.useState(false);
-    const [cadastroModalShow, setCadastroModalShow] = React.useState(false);
-    const [infoModalShow, setInfoModalShow] = React.useState(false);
-    function deslogar(event){
+    const [loginModalShow, setLoginModalShow] = useState(false);
+    const [cadastroModalShow, setCadastroModalShow] = useState(false);
+    const [infoModalShow, setInfoModalShow] = useState(false);
+    const [login, setLogin] = useState(false)
+
+    const deslogar = (event) =>{
         event.preventDefault()
+        setLogin(!login)
         logout()
-        window.location.href = '/';
     }
+
     const autenticacao = isAuthenticated() ?
     <Row>
         <Col>
@@ -59,7 +62,6 @@ function Header() {
                 <CadastrarModal
                     show={cadastroModalShow}
                     onHide={() => setCadastroModalShow(false)}
-                    onShow={() => setCadastroModalShow(true)}
                 />
             </ButtonToolbar>
         </Col>
@@ -76,7 +78,7 @@ function Header() {
                 {/* Modal de Login */}
                 {autenticacao}
             </Nav>
-            {console.log(isAuthenticated())}
+            
         </Navbar>
     )
 }

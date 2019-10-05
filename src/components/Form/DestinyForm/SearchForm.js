@@ -1,10 +1,12 @@
 import React from 'react'
 import { Form, Container, Row, Alert, Button, Col, DropdownButton, Jumbotron,InputGroup, ListGroup } from 'react-bootstrap';
-import Calendar from 'react-calendar';
+import DayPicker from 'react-day-picker';
 import PlacesAutocomplete, {
     geocodeByAddress,
     getLatLng,
   } from 'react-places-autocomplete';
+import 'react-day-picker/lib/style.css';
+import { WEEKDAYS_LONG, WEEKDAYS_SHORT, MONTHS } from "./CalenderBr"
 
 
 class SearchForm extends React.Component {
@@ -16,6 +18,7 @@ class SearchForm extends React.Component {
             bebes: 0,
             date: new Date(),
             selectDateIn: "",
+            selectDateOut:"",
             address: "",
         }
     }
@@ -24,6 +27,16 @@ class SearchForm extends React.Component {
         
         this.setState({ address });
     };
+
+    somar = (event) => {
+        const nome = event.target.name
+        const value = event.target.value + 1
+        console.log(nome)
+        this.setState({
+            [nome]: value
+        })
+
+    }
 
     diminuirAdulto = (event) => {
         // event.preventDefault()
@@ -80,7 +93,7 @@ class SearchForm extends React.Component {
     }
 
 
-    setDate = (value) => {
+    setDateIn = (value) => {
         let valor = String(value)
         let resultado = valor.split(" ")
         let dias = `${resultado[0]} ${resultado[2]}/${resultado[1]}/${resultado[3]}`
@@ -89,19 +102,42 @@ class SearchForm extends React.Component {
         })
     }
 
-    onDateChange = date => this.setState({ date })
+    setDateOut = (value) => {
+        let valor = String(value)
+        let resultado = valor.split(" ")
+        let dias = `${resultado[0]} ${resultado[2]}/${resultado[1]}/${resultado[3]}`
+        this.setState({
+            selectDateOut: dias
+        })
+    }
+
+
+    handleDayClickIn = (day, { selected }) => {
+        const selectedDay = day.toLocaleDateString()
+        this.setState({
+            selectDateIn: selected ? undefined : selectedDay,
+        }); 
+    }
+
+    handleDayClickOut = (day, { selected }) => {
+        const selectedDay = day.toLocaleDateString()
+        this.setState({
+            selectDateOut: selected ? undefined : selectedDay,
+        }); 
+    }
 
     handleSelect = address => {
         geocodeByAddress(address)
           .then(results => getLatLng(results[0]))
-          .then(latLng => console.log('Success', latLng))
-          .catch(error => console.error('Error', error));
+        //   .then(latLng => console.log('Success', latLng))
+        //   .catch(error => console.error('Error', error));
         };
 
     render() {
-
+        const today = new Date()
         return (
             <div>
+                {console.log("olaa", this.state.selectDateIn)}
                 <Container>
                     <Jumbotron fluid="true">
                         <Row className="justify-content-md-center">
@@ -131,7 +167,7 @@ class SearchForm extends React.Component {
                                                 })}
                                                 />
                                                 <div style={{zIndex: 2, position: "absolute"}}  className="autocomplete-dropdown-container">
-                                                {console.log(suggestions)}
+                                                {/* {console.log(suggestions)} */}
                                                 {suggestions.map(suggestion => {
                                                     
                                                     const className = suggestion.active
@@ -172,20 +208,25 @@ class SearchForm extends React.Component {
                                                 title="Check-in"
                                                 id="input-group-dropdown-1"
                                                 size="sm"
+                                                
                                             >
-                                                <Calendar
-                                                    onDateChange={this.onDateChange}
-                                                    value={this.state.date}
-                                                    onClickDay={this.setDate}
-
+                                                <DayPicker
+                                                    selectedDays={null}
+                                                    onDayClick={this.handleDayClickIn}
+                                                    disabledDays={{ before: today }}
+                                                    months={MONTHS}
+                                                    weekdaysLong={WEEKDAYS_LONG}
+                                                    weekdaysShort={WEEKDAYS_SHORT}
                                                 />
+                                            
                                             </DropdownButton>
-                                            <Form.Control id="inputCalendar1" placeholder="--/--/----" aria-describedby="basic-addon1" type="text" value={this.state.selectDateIn} size="sm" readOnly />
+                                            <Form.Control id="inputCalendar2" placeholder="--/--/----" aria-describedby="basic-addon1" type="text" value={this.state.selectDateIn === null ? "" : this.state.selectDateIn} size="sm" readOnly />
                                         </InputGroup>
+                                        
                                     </Col>
                                     <Col xs lg={3}>
                                         <InputGroup>
-                                            <Form.Control id="inputCalendar2" placeholder="--/--/----" aria-describedby="basic-addon1" type="text" value={this.state.selectDateIn} size="sm" readOnly />
+                                            <Form.Control id="inputCalendar1" placeholder="--/--/----" aria-describedby="basic-addon1" type="text" value={this.state.selectDateOut} size="sm" readOnly />
                                             <DropdownButton
                                                 as={InputGroup.Prepend}
                                                 variant="outline-info"
@@ -194,11 +235,13 @@ class SearchForm extends React.Component {
                                                 size="sm"
                                                 
                                             >
-                                                <Calendar
-                                                    onDateChange={this.onDateChange}
-                                                    value={this.state.date}
-                                                    onClickDay={this.setDate}
-
+                                                <DayPicker
+                                                    selectedDays={null}
+                                                    onDayClick={this.handleDayClickOut}
+                                                    disabledDays={{ before: today }}
+                                                    months={MONTHS}
+                                                    weekdaysLong={WEEKDAYS_LONG}
+                                                    weekdaysShort={WEEKDAYS_SHORT}
                                                 />
                                             </DropdownButton>
                                             

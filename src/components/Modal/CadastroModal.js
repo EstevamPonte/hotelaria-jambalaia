@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { Modal, Button, Form, Col } from 'react-bootstrap'
 import axios from 'axios'
 import * as Config from '../../config/constants'
+import { login } from '../../services/auth'
 
 class CadastroModal extends Component {
     constructor(props) {
@@ -25,8 +26,8 @@ class CadastroModal extends Component {
                     console.log(resp)
                 } else if(resp.data.status === 200){
                     alert(`${resp.data.message}`)
+                    login(JSON.stringify(resp.data.conta))
                     this.props.onHide()
-                    console.log(resp)
                 } else if(resp.data.status === 300) {
                     console.log(resp)
                     alert(`${resp.data.message}`)

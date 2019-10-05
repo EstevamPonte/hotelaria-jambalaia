@@ -2,7 +2,7 @@ import React, {Component} from 'react';
 import { Modal, Button, Form } from 'react-bootstrap'
 import * as Config from '../../config/constants'
 import axios from 'axios'
-import { login, validate } from '../../services/auth'
+import { login } from '../../services/auth'
 
 
 class LoginModal extends Component {
@@ -18,10 +18,10 @@ class LoginModal extends Component {
         axios.post(Config.URL + "login", accomplishLogin)
             .then(resp => {
                 if(resp.data.status === 200){
-                    console.log(resp.data.Conta)
                     login(JSON.stringify(resp.data.Conta))
                     axios.defaults.headers.common['Authorization'] = resp.data.Conta.id
                     this.props.onHide()
+
                 }else if(resp.data.status === 300){
                     alert(resp.data.message)
                 }else if(resp.data.status === 500){

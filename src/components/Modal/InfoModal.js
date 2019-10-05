@@ -1,6 +1,5 @@
 import React from 'react';
 import { Modal } from 'react-bootstrap'
-import { getToken } from '../../services/auth'
 
 const InfoModal = (props) => {
     
