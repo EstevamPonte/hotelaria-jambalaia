@@ -21,7 +21,6 @@ class LoginModal extends Component {
                     login(JSON.stringify(resp.data.Conta))
                     axios.defaults.headers.common['Authorization'] = resp.data.Conta.id
                     this.props.onHide()
-
                 }else if(resp.data.status === 300){
                     alert(resp.data.message)
                 }else if(resp.data.status === 500){
