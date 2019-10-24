@@ -24,74 +24,35 @@ class SearchForm extends React.Component {
     }
 
     handleChange = address => {
-
         this.setState({ address });
     };
 
-    somar = (event) => {
-        const nome = event.target.name
-        const value = event.target.value + 1
-        console.log(nome)
-        this.setState({
-            [nome]: value
-        })
-
-    }
-
-    diminuirAdulto = (event) => {
-        // event.preventDefault()
-        if (this.state.adultos !== 0) {
-            let subtracao = this.state.adultos - 1
+    quantidadeAdultos = (diferenca) => {
+        let quantidade = this.state.adultos + diferenca
+        if (quantidade >= 0) {
             this.setState({
-                adultos: subtracao
+                adultos: quantidade
             })
         }
     }
 
-    diminuirCrianca = (event) => {
-        event.preventDefault()
-        if (this.state.crianca !== 0) {
-            let subtracao = this.state.crianca - 1
+    quantidadeCriancas = (diferenca) => {
+        let quantidade = this.state.crianca + diferenca
+        if (quantidade >= 0) {
             this.setState({
-                crianca: subtracao
+                crianca: quantidade
             })
         }
     }
 
-    diminuirBebes = (event) => {
-        event.preventDefault()
-        if (this.state.bebes !== 0) {
-            let subtracao = this.state.bebes - 1
+    quantidadeBebes = (diferenca) => {
+        let quantidade = this.state.bebes + diferenca
+        if (quantidade >= 0) {
             this.setState({
-                bebes: subtracao
+                bebes: quantidade
             })
         }
     }
-
-    somarAdulto = (event) => {
-        event.preventDefault()
-        let soma = this.state.adultos + 1
-        this.setState({
-            adultos: soma
-        })
-    }
-
-    somarCrianca = (event) => {
-        event.preventDefault()
-        let soma = this.state.crianca + 1
-        this.setState({
-            crianca: soma
-        })
-    }
-
-    somarBebes = (event) => {
-        event.preventDefault()
-        let soma = this.state.bebes + 1
-        this.setState({
-            bebes: soma
-        })
-    }
-
 
     setDateIn = (value) => {
         let valor = String(value)
@@ -197,7 +158,6 @@ class SearchForm extends React.Component {
                                     </Col>
                                 </Row>
                             </Form.Group>
-
                             {/* Calentadarios */}
                             <Form.Group>
                                 <Row className="justify-content-md-center">
@@ -258,27 +218,27 @@ class SearchForm extends React.Component {
                                 <Col md="auto" >
                                     <Alert key="1" variant="primary">
                                         <h6 style={{ textAlign: "center" }}>Adultos</h6>
-                                        <Button style={{ marginRight: 10 }} size="sm" onClick={this.diminuirAdulto} variant="outline-primary">-</Button>
+                                        <Button style={{ marginRight: 10 }} size="sm" onClick={() => this.quantidadeAdultos(-1)} variant="outline-primary">-</Button>
                                         {this.state.adultos}
-                                        <Button style={{ marginLeft: 10 }} size="sm" onClick={this.somarAdulto} variant="outline-primary">+</Button>
+                                        <Button style={{ marginLeft: 10 }} size="sm" onClick={() => this.quantidadeAdultos(1)} variant="outline-primary">+</Button>
                                     </Alert>
                                 </Col>
 
                                 <Col md="auto">
                                     <Alert key="2" variant="primary">
                                         <h6 style={{ textAlign: "center" }}>Crianças</h6>
-                                        <Button style={{ marginRight: 10 }} size="sm" onClick={this.diminuirCrianca} variant="outline-primary">-</Button>
+                                        <Button style={{ marginRight: 10 }} size="sm" onClick={() => this.quantidadeCriancas(-1)} variant="outline-primary">-</Button>
                                         {this.state.crianca}
-                                        <Button style={{ marginLeft: 10 }} size="sm" onClick={this.somarCrianca} variant="outline-primary">+</Button>
+                                        <Button style={{ marginLeft: 10 }} size="sm" onClick={() => this.quantidadeCriancas(1)} variant="outline-primary">+</Button>
                                     </Alert>
                                 </Col>
 
                                 <Col md="auto">
                                     <Alert key="3" variant="primary">
                                         <h6 style={{ textAlign: "center" }}>Bebês</h6>
-                                        <Button style={{ marginRight: 10 }} size="sm" onClick={this.diminuirBebes} variant="outline-primary">-</Button>
+                                        <Button style={{ marginRight: 10 }} size="sm" onClick={() => this.quantidadeBebes(-1)} variant="outline-primary">-</Button>
                                         {this.state.bebes}
-                                        <Button style={{ marginLeft: 10 }} size="sm" onClick={this.somarBebes} variant="outline-primary">+</Button>
+                                        <Button style={{ marginLeft: 10 }} size="sm" onClick={() => this.quantidadeBebes(1)} variant="outline-primary">+</Button>
                                     </Alert>
                                 </Col>
                             </Row>
@@ -290,7 +250,7 @@ class SearchForm extends React.Component {
                         </Form>
 
                     </Jumbotron>
-                    <CardHoteis />
+                    <CardHoteis/>
                 </Container>
                 {/* <div>
                     <CarrosselAnimado/>
