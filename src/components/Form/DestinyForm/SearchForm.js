@@ -1,13 +1,13 @@
 import React from 'react'
-import { Form, Container, Row, Alert, Button, Col, DropdownButton, Jumbotron,InputGroup, ListGroup } from 'react-bootstrap';
+import { Form, Container, Row, Alert, Button, Col, DropdownButton, Jumbotron, InputGroup, ListGroup } from 'react-bootstrap';
 import DayPicker from 'react-day-picker';
 import PlacesAutocomplete, {
     geocodeByAddress,
     getLatLng,
-  } from 'react-places-autocomplete';
+} from 'react-places-autocomplete';
 import 'react-day-picker/lib/style.css';
 import { WEEKDAYS_LONG, WEEKDAYS_SHORT, MONTHS } from "./CalenderBr"
-
+import CardHoteis from '../../Cards/CardHoteis'
 
 class SearchForm extends React.Component {
     constructor(props) {
@@ -17,14 +17,14 @@ class SearchForm extends React.Component {
             crianca: 0,
             bebes: 0,
             date: new Date(),
-            selectDateIn: "",
-            selectDateOut:"",
+            selectDateIn: undefined,
+            selectDateOut: undefined,
             address: "",
         }
     }
 
-    handleChange =  address => {
-        
+    handleChange = address => {
+
         this.setState({ address });
     };
 
@@ -112,32 +112,33 @@ class SearchForm extends React.Component {
     }
 
 
-    handleDayClickIn = (day, { selected }) => {
-        const selectedDay = day.toLocaleDateString()
-        this.setState({
-            selectDateIn: selected ? undefined : selectedDay,
-        }); 
+    handleDayClickIn = (day, modifiers = {}) => {
+        if (modifiers.disabled !== true) {
+            this.setState({
+                selectDateIn: modifiers.selected ? undefined : day,
+            });
+        }
     }
 
-    handleDayClickOut = (day, { selected }) => {
-        const selectedDay = day.toLocaleDateString()
-        this.setState({
-            selectDateOut: selected ? undefined : selectedDay,
-        }); 
+    handleDayClickOut = (day, modifiers = {}) => {
+        if (modifiers.disabled !== true) {
+            this.setState({
+                selectDateOut: modifiers.selected ? undefined : day,
+            });
+        }
     }
 
     handleSelect = address => {
         geocodeByAddress(address)
-          .then(results => getLatLng(results[0]))
+            .then(results => getLatLng(results[0]))
         //   .then(latLng => console.log('Success', latLng))
         //   .catch(error => console.error('Error', error));
-        };
+    };
 
     render() {
         const today = new Date()
         return (
             <div>
-                {console.log("olaa", this.state.selectDateIn)}
                 <Container>
                     <Jumbotron fluid="true">
                         <Row className="justify-content-md-center">
@@ -145,52 +146,52 @@ class SearchForm extends React.Component {
                                 <h1 >Escolha seu destino</h1>
                             </Col>
                         </Row>
-                        <Form style={{zIndex: 1}}>
+                        <Form style={{ zIndex: 1 }}>
                             {/* Form de destino */}
                             <Form.Group controlId="formLocal" >
                                 <Row className="justify-content-md-center">
                                     <Col md="auto">
-                                        
+
                                         <PlacesAutocomplete
                                             value={this.state.address}
                                             onChange={this.handleChange}
                                             onSelect={this.handleSelect}
-                                            
+
                                         >
                                             {({ getInputProps, suggestions, getSuggestionItemProps, loading }) => (
-                                            <div>
-                                                <Form.Control
-                                                size="sm"
-                                                {...getInputProps({
-                                                    placeholder: 'Digite um destino...',
-                                                    className: 'location-search-input',
-                                                })}
-                                                />
-                                                <div style={{zIndex: 2, position: "absolute"}}  className="autocomplete-dropdown-container">
-                                                {/* {console.log(suggestions)} */}
-                                                {suggestions.map(suggestion => {
-                                                    
-                                                    const className = suggestion.active
-                                                    ? 'suggestion-item--active'
-                                                    : 'suggestion-item';
-                                                    // inline style for demonstration purpose
-                                                
-                                                    const style = suggestion.active
-                                                    ? { backgroundColor: '#fafafa', cursor: 'pointer'}
-                                                    : { backgroundColor: '#ffffff', cursor: 'pointer'};
-                                                    return (
-                                                    <ListGroup
-                                                        {...getSuggestionItemProps(suggestion, {
-                                                        className,
-                                                        style,
+                                                <div>
+                                                    <Form.Control
+                                                        size="sm"
+                                                        {...getInputProps({
+                                                            placeholder: 'Digite um destino...',
+                                                            className: 'location-search-input',
                                                         })}
-                                                    >
-                                                        <ListGroup.Item >{suggestion.formattedSuggestion.mainText}</ListGroup.Item>
-                                                    </ListGroup>
-                                                    );
-                                                })}
+                                                    />
+                                                    <div style={{ zIndex: 2, position: "absolute" }} className="autocomplete-dropdown-container">
+                                                        {/* {console.log(suggestions)} */}
+                                                        {suggestions.map(suggestion => {
+
+                                                            const className = suggestion.active
+                                                                ? 'suggestion-item--active'
+                                                                : 'suggestion-item';
+                                                            // inline style for demonstration purpose
+
+                                                            const style = suggestion.active
+                                                                ? { backgroundColor: '#fafafa', cursor: 'pointer' }
+                                                                : { backgroundColor: '#ffffff', cursor: 'pointer' };
+                                                            return (
+                                                                <ListGroup
+                                                                    {...getSuggestionItemProps(suggestion, {
+                                                                        className,
+                                                                        style,
+                                                                    })}
+                                                                >
+                                                                    <ListGroup.Item >{suggestion.formattedSuggestion.mainText}</ListGroup.Item>
+                                                                </ListGroup>
+                                                            );
+                                                        })}
+                                                    </div>
                                                 </div>
-                                            </div>
                                             )}
                                         </PlacesAutocomplete>
                                     </Col>
@@ -208,43 +209,43 @@ class SearchForm extends React.Component {
                                                 title="Check-in"
                                                 id="input-group-dropdown-1"
                                                 size="sm"
-                                                
+
                                             >
                                                 <DayPicker
-                                                    selectedDays={null}
-                                                    onDayClick={this.handleDayClickIn}
+                                                    selectedDays={this.state.selectDateIn}
                                                     disabledDays={{ before: today }}
+                                                    onDayClick={this.handleDayClickIn}
                                                     months={MONTHS}
                                                     weekdaysLong={WEEKDAYS_LONG}
                                                     weekdaysShort={WEEKDAYS_SHORT}
                                                 />
-                                            
+
                                             </DropdownButton>
-                                            <Form.Control id="inputCalendar2" placeholder="--/--/----" aria-describedby="basic-addon1" type="text" value={this.state.selectDateIn === null ? "" : this.state.selectDateIn} size="sm" readOnly />
+                                            <Form.Control id="inputCalendar2" placeholder="--/--/----" aria-describedby="basic-addon1" type="text" value={this.state.selectDateIn === undefined ? "" : this.state.selectDateIn.toLocaleDateString()} size="sm" readOnly />
                                         </InputGroup>
-                                        
+
                                     </Col>
                                     <Col xs lg={3}>
                                         <InputGroup>
-                                            <Form.Control id="inputCalendar1" placeholder="--/--/----" aria-describedby="basic-addon1" type="text" value={this.state.selectDateOut} size="sm" readOnly />
+                                            <Form.Control id="inputCalendar1" placeholder="--/--/----" aria-describedby="basic-addon1" type="text" value={this.state.selectDateOut === undefined ? "" : this.state.selectDateOut.toLocaleDateString()} size="sm" readOnly />
                                             <DropdownButton
                                                 as={InputGroup.Prepend}
                                                 variant="outline-info"
                                                 title="Check-out"
                                                 id="input-group-dropdown-2"
                                                 size="sm"
-                                                
+
                                             >
                                                 <DayPicker
-                                                    selectedDays={null}
-                                                    onDayClick={this.handleDayClickOut}
+                                                    selectedDays={this.state.selectDateOut}
                                                     disabledDays={{ before: today }}
+                                                    onDayClick={this.handleDayClickOut}
                                                     months={MONTHS}
                                                     weekdaysLong={WEEKDAYS_LONG}
                                                     weekdaysShort={WEEKDAYS_SHORT}
                                                 />
                                             </DropdownButton>
-                                            
+
                                         </InputGroup>
                                     </Col>
 
@@ -252,35 +253,35 @@ class SearchForm extends React.Component {
                             </Form.Group>
 
                             {/* Form de pessoas */}
-                            
-                                <Row className="justify-content-md-center">
-                                        <Col md="auto" >
-                                            <Alert key="1" variant="primary">
-                                                <h6 style={{textAlign: "center"}}>Adultos</h6>
-                                                <Button style={{ marginRight: 10 }} size="sm" onClick={this.diminuirAdulto} variant="outline-primary">-</Button>
-                                                {this.state.adultos}
-                                                <Button style={{ marginLeft: 10 }} size="sm" onClick={this.somarAdulto} variant="outline-primary">+</Button>
-                                            </Alert>
-                                        </Col>
-                                    
-                                        <Col md="auto">
-                                            <Alert key="2" variant="primary">
-                                                <h6 style={{textAlign: "center"}}>Crianças</h6>
-                                                <Button style={{ marginRight: 10 }} size="sm" onClick={this.diminuirCrianca} variant="outline-primary">-</Button>
-                                                {this.state.crianca}
-                                                <Button style={{ marginLeft: 10 }} size="sm" onClick={this.somarCrianca} variant="outline-primary">+</Button>
-                                            </Alert>
-                                        </Col>
-                                    
-                                        <Col md="auto">
-                                            <Alert key="3" variant="primary">
-                                                <h6 style={{textAlign: "center"}}>Bebês</h6>
-                                                <Button style={{ marginRight: 10 }} size="sm" onClick={this.diminuirBebes} variant="outline-primary">-</Button>
-                                                {this.state.bebes}
-                                                <Button style={{ marginLeft: 10 }} size="sm" onClick={this.somarBebes} variant="outline-primary">+</Button>
-                                            </Alert>
-                                        </Col>
-                                </Row>
+
+                            <Row className="justify-content-md-center">
+                                <Col md="auto" >
+                                    <Alert key="1" variant="primary">
+                                        <h6 style={{ textAlign: "center" }}>Adultos</h6>
+                                        <Button style={{ marginRight: 10 }} size="sm" onClick={this.diminuirAdulto} variant="outline-primary">-</Button>
+                                        {this.state.adultos}
+                                        <Button style={{ marginLeft: 10 }} size="sm" onClick={this.somarAdulto} variant="outline-primary">+</Button>
+                                    </Alert>
+                                </Col>
+
+                                <Col md="auto">
+                                    <Alert key="2" variant="primary">
+                                        <h6 style={{ textAlign: "center" }}>Crianças</h6>
+                                        <Button style={{ marginRight: 10 }} size="sm" onClick={this.diminuirCrianca} variant="outline-primary">-</Button>
+                                        {this.state.crianca}
+                                        <Button style={{ marginLeft: 10 }} size="sm" onClick={this.somarCrianca} variant="outline-primary">+</Button>
+                                    </Alert>
+                                </Col>
+
+                                <Col md="auto">
+                                    <Alert key="3" variant="primary">
+                                        <h6 style={{ textAlign: "center" }}>Bebês</h6>
+                                        <Button style={{ marginRight: 10 }} size="sm" onClick={this.diminuirBebes} variant="outline-primary">-</Button>
+                                        {this.state.bebes}
+                                        <Button style={{ marginLeft: 10 }} size="sm" onClick={this.somarBebes} variant="outline-primary">+</Button>
+                                    </Alert>
+                                </Col>
+                            </Row>
                             <Row className="justify-content-md-center">
                                 <Col md={{ span: 4, offset: "auto" }}>
                                     <Button variant="primary" block>Procurar</Button>
@@ -289,11 +290,12 @@ class SearchForm extends React.Component {
                         </Form>
 
                     </Jumbotron>
+                    <CardHoteis />
                 </Container>
                 {/* <div>
                     <CarrosselAnimado/>
                 </div> */}
-                
+
             </div>
         )
     }

@@ -2,7 +2,7 @@ import React from 'react';
 import { Modal } from 'react-bootstrap'
 
 const InfoModal = (props) => {
-    
+
     return (
         <Modal
             {...props}
@@ -12,12 +12,12 @@ const InfoModal = (props) => {
         >
             <Modal.Header closeButton>
                 <Modal.Title id="example-custom-modal-styling-title">
-                   
+
                 </Modal.Title>
             </Modal.Header>
             <Modal.Body>
                 <p>
-                    
+
                 </p>
             </Modal.Body>
         </Modal>
