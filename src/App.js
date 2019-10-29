@@ -4,7 +4,6 @@ import Header from './components/Leyout/Header'
 import Footer from './components/Leyout/Footer'
 import Routes from "./commons/Routes"
 
-
 function App() {
     return (
         <div>

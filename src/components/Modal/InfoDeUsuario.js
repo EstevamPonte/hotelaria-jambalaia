@@ -1,13 +1,15 @@
 import React, { Component } from 'react'
-import { Modal, Button, Form } from 'react-bootstrap'
+import { Modal, Button, Form, Row, Col } from 'react-bootstrap'
 import { getToken } from '../../services/auth'
-
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { faPhone } from '@fortawesome/free-solid-svg-icons'
 
 
 class InfoDeUsuario extends Component {
+    
     render() {
         const userInfo = JSON.parse(getToken())
-        console.log(userInfo[0].name)
+        console.log(userInfo)
         return (
             <Modal
                 {...this.props}
@@ -22,9 +24,16 @@ class InfoDeUsuario extends Component {
                     </Modal.Title>
                 </Modal.Header>
                 <Modal.Body>
-                    <p>{userInfo[0].email}</p>
-                    <p>{userInfo[0].number}</p>
-                    <span className="glyphicon glyphicon-align-left" aria-hidden="true"></span>
+                        <p>{userInfo[0].email}</p>
+                    <Row>
+                        <Col>
+                            <FontAwesomeIcon icon={faPhone}/>
+                        </Col>
+                        <Col>
+                            <p>{userInfo[0].cellphone}</p>
+                        </Col>
+                    </Row>
+                        <span className="glyphicon glyphicon-align-left" aria-hidden="true"></span>
                 </Modal.Body>
             </Modal>
         )

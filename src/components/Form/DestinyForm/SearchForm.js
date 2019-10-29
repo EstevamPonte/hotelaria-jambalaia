@@ -8,6 +8,8 @@ import PlacesAutocomplete, {
 import 'react-day-picker/lib/style.css';
 import { WEEKDAYS_LONG, WEEKDAYS_SHORT, MONTHS } from "./CalenderBr"
 import CardHoteis from '../../Cards/CardHoteis'
+import * as Config from '../../../config/constants'
+import axios from 'axios'
 
 class SearchForm extends React.Component {
     constructor(props) {
@@ -20,7 +22,32 @@ class SearchForm extends React.Component {
             selectDateIn: undefined,
             selectDateOut: undefined,
             address: "",
+            longitude: "",
+            latitude: "",
         }
+    }
+
+    // componentDidMount(){
+    //     this.getHotel()
+    // }
+    postHotel(latLng){
+        console.log(latLng)
+        axios.post(Config.URL + 'place_search', latLng)
+            .then(resp => {
+                console.log(resp)
+            })
+            .catch(erro => {
+                console.log(erro)
+            })
+    }
+
+    handleSubmit = (event) => {
+        event.preventDefault()
+        const latLng = {
+            latitude: this.state.latitude,
+            longitude: this.state.longitude
+        }
+        this.postHotel(latLng)
     }
 
     handleChange = address => {
@@ -92,8 +119,15 @@ class SearchForm extends React.Component {
     handleSelect = address => {
         geocodeByAddress(address)
             .then(results => getLatLng(results[0]))
-        //   .then(latLng => console.log('Success', latLng))
-        //   .catch(error => console.error('Error', error));
+          .then(latLng => {
+              let latitude = `${latLng.lat}`
+              let longitude = `${latLng.lng}`
+              this.setState({
+                  latitude,
+                  longitude
+              })
+          })
+          .catch(error => console.error('Error', error));
     };
 
     render() {
@@ -244,7 +278,7 @@ class SearchForm extends React.Component {
                             </Row>
                             <Row className="justify-content-md-center">
                                 <Col md={{ span: 4, offset: "auto" }}>
-                                    <Button variant="primary" block>Procurar</Button>
+                                    <Button type='submit' onClick={this.handleSubmit.bind(this)} variant="primary" block>Procurar</Button>
                                 </Col>
                             </Row>
                         </Form>

@@ -4,6 +4,8 @@ import Photo from '../../Utils/Images/campainha-de-mesa.png'
 import LoginModal from '../Modal/LoginModal'
 import InfoDeUsuario from '../Modal/InfoDeUsuario'
 import CadastrarModal from '../Modal/CadastroModal'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { faUser } from '@fortawesome/free-solid-svg-icons'
 
 import { isAuthenticated, logout } from '../../services/auth'
 
@@ -30,7 +32,7 @@ function Header() {
                 <ButtonToolbar>
 
                     <Button variant="primary" onClick={() => setUpdate(true)}>
-                        Usuario
+                        <FontAwesomeIcon icon={faUser} size="lg"/>
                     </Button>
                     <InfoDeUsuario
                         show={update}
