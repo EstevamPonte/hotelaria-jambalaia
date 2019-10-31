@@ -24,6 +24,7 @@ class SearchForm extends React.Component {
             address: "",
             longitude: "",
             latitude: "",
+            hoteis: []
         }
     }
 
@@ -34,7 +35,7 @@ class SearchForm extends React.Component {
         console.log(latLng)
         axios.post(Config.URL + 'place_search', latLng)
             .then(resp => {
-                console.log(resp)
+                this.setState({hoteis: resp.data.return.results})
             })
             .catch(erro => {
                 console.log(erro)
@@ -129,11 +130,32 @@ class SearchForm extends React.Component {
           })
           .catch(error => console.error('Error', error));
     };
+    
+    listHoteis = () => {
+        const { selectDateIn, selectDateOut} = this.state
+       
+        // return this.state.hoteis.map((hotel) => 
+        //     <Col sm={3}>
+        //         <CardHoteis 
+        //         name={hotel.name} adulto={this.state.adultos} photo={hotel.photos}
+        //         crianca={this.state.crianca} bebe={this.state.bebes} dateIn={selectDateIn === undefined ? 'Data não informada' :  selectDateIn.toLocaleDateString()}
+        //         dateOut={selectDateOut === undefined ? 'Data não informada' : selectDateOut.toLocaleDateString()}/>
+        //     </Col>)
+        return(
+        <Col sm={3}>
+            <CardHoteis 
+            adulto={this.state.adultos}
+            crianca={this.state.crianca} bebe={this.state.bebes} dateIn={selectDateIn === undefined ? 'Data não informada' :  selectDateIn.toLocaleDateString()}
+            dateOut={selectDateOut === undefined ? 'Data não informada' : selectDateOut.toLocaleDateString()}/>
+        </Col>)
+    }
 
     render() {
         const today = new Date()
+        const listaDeHoteis = this.listHoteis()
         return (
             <div>
+                {console.log('hoteis', this.state.hoteis)}
                 <Container>
                     <Jumbotron fluid="true">
                         <Row className="justify-content-md-center">
@@ -282,9 +304,12 @@ class SearchForm extends React.Component {
                                 </Col>
                             </Row>
                         </Form>
-
                     </Jumbotron>
-                    <CardHoteis/>
+                    <Row>
+                        
+                        {listaDeHoteis}
+                        
+                    </Row>
                 </Container>
                 {/* <div>
                     <CarrosselAnimado/>
