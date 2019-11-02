@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { Navbar, NavbarBrand, Nav, Image, ButtonToolbar, Button, Row, Col } from 'react-bootstrap'
 import Photo from '../../Utils/Images/campainha-de-mesa.png'
 import LoginModal from '../Modal/LoginModal'
-import InfoDeUsuario from '../Modal/InfoDeUsuario'
+import InfoDeUsuarioModal from '../Modal/InfoDeUsuarioModal'
 import CadastrarModal from '../Modal/CadastroModal'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faUser } from '@fortawesome/free-solid-svg-icons'
@@ -34,7 +34,7 @@ function Header() {
                     <Button variant="primary" onClick={() => setUpdate(true)}>
                         <FontAwesomeIcon icon={faUser} size="lg"/>
                     </Button>
-                    <InfoDeUsuario
+                    <InfoDeUsuarioModal
                         show={update}
                         onHide={() => setUpdate(false)}
                     />

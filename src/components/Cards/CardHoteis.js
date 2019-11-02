@@ -1,6 +1,6 @@
 import React, { useState } from 'react'
 import { Card, Button, Container, ButtonToolbar} from 'react-bootstrap'
-import ModalInfoCard from "./ModalInfoCard"
+import HotelInfoModal from "../Modal/HotelInfoModal"
 
 const CardHoteis = (props) => {
     const [ModalInfoCardShow, setModalInfoCardShow] = useState(false);
@@ -18,7 +18,7 @@ const CardHoteis = (props) => {
                             Info geral do hotel
                             </Button>
 
-                        <ModalInfoCard
+                        <HotelInfoModal
                             show={ModalInfoCardShow}
                             onHide={() => setModalInfoCardShow(false)}
                             name={props.name} adulto={props.adulto} crianca={props.crianca}

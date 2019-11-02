@@ -2,7 +2,7 @@ import React from 'react';
 import { Modal, Row, Col, Badge, Button } from 'react-bootstrap'
 import './ModalInfoCard.css'
 
-const InfoModal = (props) => {
+const HotelInfoModal = (props) => {
 
 
     return (
@@ -71,4 +71,4 @@ const InfoModal = (props) => {
     );
 }
 
-export default InfoModal;   
+export default HotelInfoModal;   

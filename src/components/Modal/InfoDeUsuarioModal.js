@@ -3,10 +3,10 @@ import { Modal, Button, Form, Row, Col } from 'react-bootstrap'
 import { getToken } from '../../services/auth'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faPhone, faEnvelope, faUser, faCity } from '@fortawesome/free-solid-svg-icons'
-import CardDeReserva from './CardDeReserva'
+import CardDeReserva from '../Cards/CardDeReserva'
 
 
-class InfoDeUsuario extends Component {
+class InfoDeUsuarioModal extends Component {
     
     render() {
         const userInfo = JSON.parse(getToken())
@@ -63,4 +63,4 @@ class InfoDeUsuario extends Component {
     }
 }
 
-export default InfoDeUsuario
+export default InfoDeUsuarioModal
