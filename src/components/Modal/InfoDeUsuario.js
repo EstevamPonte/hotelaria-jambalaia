@@ -2,7 +2,8 @@ import React, { Component } from 'react'
 import { Modal, Button, Form, Row, Col } from 'react-bootstrap'
 import { getToken } from '../../services/auth'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faPhone } from '@fortawesome/free-solid-svg-icons'
+import { faPhone, faEnvelope, faUser, faCity } from '@fortawesome/free-solid-svg-icons'
+import CardDeReserva from './CardDeReserva'
 
 
 class InfoDeUsuario extends Component {
@@ -19,21 +20,43 @@ class InfoDeUsuario extends Component {
             >
                 <Modal.Header closeButton>
                     <Modal.Title id="contained-modal-title-vcenter">
-                        {/* Titulo do modal */}
+                        <FontAwesomeIcon style={{marginRight: '10px'}} icon={faUser}/>
                         {userInfo[0].name}
                     </Modal.Title>
                 </Modal.Header>
                 <Modal.Body>
-                        <p>{userInfo[0].email}</p>
-                    <Row>
-                        <Col>
+                    <Row className="justify-content-md-center">
+                        <Col xs="auto" sm="auto" md="auto" lg="auto">
+                            <FontAwesomeIcon icon={faEnvelope}/>
+                        </Col>
+                        <Col xs={10} sm={10} md={10} lg="auto">
+                            <p>{userInfo[0].email}</p>
+                        </Col>
+                        <Col xs="auto" sm="auto" md="auto" lg="auto">
                             <FontAwesomeIcon icon={faPhone}/>
                         </Col>
-                        <Col>
+                        <Col xs={10} sm={10} md={10} lg="auto">
                             <p>{userInfo[0].cellphone}</p>
                         </Col>
+                        <Col xs="auto" sm="auto" md="auto" lg="auto">
+                            <FontAwesomeIcon icon={faCity}/>
+                        </Col>
+                        <Col xs={10} sm={10} md={10} lg="auto">
+                            <p>{userInfo[0].city}</p>
+                        </Col>
                     </Row>
-                        <span className="glyphicon glyphicon-align-left" aria-hidden="true"></span>
+                    <Row className="justify-content-md-center">
+                        <Col sm='auto'>
+                            <h1 >Suas reservas</h1>
+                        </Col>
+                    </Row>                    
+                    
+                    <CardDeReserva/>
+                    <CardDeReserva/>
+                    <CardDeReserva/>
+                    <CardDeReserva/>
+                    <CardDeReserva/>
+
                 </Modal.Body>
             </Modal>
         )
