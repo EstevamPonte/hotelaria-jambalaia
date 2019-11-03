@@ -24,22 +24,43 @@ class SearchForm extends React.Component {
             address: "",
             longitude: "",
             latitude: "",
-            hoteis: []
+            hoteis: [],
+            photo: []
         }
     }
 
     // componentDidMount(){
     //     this.getHotel()
     // }
+    
+    // postPhoto(hoteis){
+    //     hoteis.map((reference) =>{
+    //         const photoreference = {photoreference: reference.photos[0].photo_reference}
+    //         axios.post(Config.URL + 'hotel_photo', photoreference)
+    //         .then(resp => {
+    //             console.log(resp.data)
+    //             // this.setState({hoteis: resp})
+    //             })
+    //             .catch(erro => {
+    //                 console.log(erro)
+    //             })
+    //     }
+            
+    //     )
+        
+    // }
+
     postHotel(latLng){
-        console.log(latLng)
         axios.post(Config.URL + 'place_search', latLng)
             .then(resp => {
-                this.setState({hoteis: resp.data.return.results})
+                const hoteis = resp.data.return.results
+                this.setState({hoteis})
+                // this.postPhoto(hoteis)
             })
             .catch(erro => {
                 console.log(erro)
             })
+        
     }
 
     handleSubmit = (event) => {
@@ -134,20 +155,25 @@ class SearchForm extends React.Component {
     listHoteis = () => {
         const { selectDateIn, selectDateOut} = this.state
        
-        // return this.state.hoteis.map((hotel) => 
-        //     <Col sm={3}>
-        //         <CardHoteis 
-        //         name={hotel.name} adulto={this.state.adultos} photo={hotel.photos}
-        //         crianca={this.state.crianca} bebe={this.state.bebes} dateIn={selectDateIn === undefined ? 'Data não informada' :  selectDateIn.toLocaleDateString()}
-        //         dateOut={selectDateOut === undefined ? 'Data não informada' : selectDateOut.toLocaleDateString()}/>
-        //     </Col>)
-        return(
-        <Col sm={3}>
-            <CardHoteis 
-            adulto={this.state.adultos}
-            crianca={this.state.crianca} bebe={this.state.bebes} dateIn={selectDateIn === undefined ? 'Data não informada' :  selectDateIn.toLocaleDateString()}
-            dateOut={selectDateOut === undefined ? 'Data não informada' : selectDateOut.toLocaleDateString()}/>
-        </Col>)
+        return this.state.hoteis.map((hotel) =>
+            <Col sm={3} key={hotel.id}>
+                <CardHoteis 
+                name={hotel.name} adulto={this.state.adultos} photo={hotel.photos}
+                crianca={this.state.crianca} bebe={this.state.bebes} datein={selectDateIn === undefined ? 'Data não informada' :  selectDateIn.toLocaleDateString()}
+                dateout={selectDateOut === undefined ? 'Data não informada' : selectDateOut.toLocaleDateString()} 
+                />  
+            </Col>
+            
+            )
+            
+            
+        // return(
+        // <Col sm={3}>
+        //     <CardHoteis 
+        //     adulto={this.state.adultos}
+        //     crianca={this.state.crianca} bebe={this.state.bebes} datein={selectDateIn === undefined ? 'Data não informada' :  selectDateIn.toLocaleDateString()}
+        //     dateout={selectDateOut === undefined ? 'Data não informada' : selectDateOut.toLocaleDateString()}/>
+        // </Col>)
     }
 
     render() {
@@ -155,12 +181,12 @@ class SearchForm extends React.Component {
         const listaDeHoteis = this.listHoteis()
         return (
             <div>
-                {console.log('hoteis', this.state.hoteis)}
+                {/* {console.log('hoteis', this.state.hoteis)} */}
                 <Container>
                     <Jumbotron fluid="true">
                         <Row className="justify-content-md-center">
                             <Col md="auto">
-                                <h1 >Escolha seu destino</h1>
+                                <h1>Escolha seu destino</h1>
                             </Col>
                         </Row>
                         <Form style={{ zIndex: 1 }}>

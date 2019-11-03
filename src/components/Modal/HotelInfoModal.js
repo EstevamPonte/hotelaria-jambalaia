@@ -1,10 +1,54 @@
-import React from 'react';
-import { Modal, Row, Col, Badge, Button } from 'react-bootstrap'
+import React, {useState ,useEffect} from 'react';
+import { Modal, Row, Col, Badge, Button, Image } from 'react-bootstrap'
 import './ModalInfoCard.css'
+import { getToken } from '../../services/auth'
+import axios from 'axios'
+import * as Config from '../../config/constants'
 
 const HotelInfoModal = (props) => {
+    const [photo, setPhoto] = useState("")
 
-
+    useEffect(() => {
+        if(props.photo !== undefined){
+            const photoreference = {photoreference: props.photo[0].photo_reference}
+            axios.post(Config.URL + 'hotel_photo', photoreference)
+                .then(resp => {
+                    setPhoto(resp.data.return_url);
+                    
+                })
+                .catch(erro => {
+                    console.log(erro)
+                })
+        }
+    }, [])
+    
+    const postUserReserve = (reserve) =>{
+        axios.post(Config.URL + "reserve", reserve)
+            .then(resp => {
+                alert(resp.data.message)
+                props.onHide()
+            })
+            .catch(erro => {
+                console.log(erro)
+            })
+        }
+    
+    
+    const handleSubmit = () => {
+        const userInfo = JSON.parse(getToken())
+        const userReserve = {
+            account_id: userInfo[0].id,
+            establishment_name: props.name,
+            childrens: props.crianca,
+            adults: props.adulto,
+            babies: props.bebe,
+            checkin: props.datein,
+            checkout: props.dateout
+        }
+        postUserReserve(userReserve)
+    }
+    
+        
     return (
         <Modal
             {...props}
@@ -18,17 +62,18 @@ const HotelInfoModal = (props) => {
                 </Modal.Title>
             </Modal.Header>
             <Modal.Body>
+                <Image src={photo} fluid />
                 <div className='modalBlock'>
 
                     <Row className="justify-content-md-center">
                         <Col xs lg="auto"  >
                             <h5>
-                                CheckIn <Badge variant="info">{props.dateIn}</Badge>
+                                CheckIn <Badge variant="info">{props.datein}</Badge>
                             </h5>
                         </Col>
                         <Col sm='auto'>
                             <h5>
-                                CheckOut <Badge variant="info">{props.dateOut}</Badge>
+                                CheckOut <Badge variant="info">{props.dateout}</Badge>
                             </h5>
                         </Col>
                     </Row>
@@ -63,7 +108,7 @@ const HotelInfoModal = (props) => {
                 </div>
                 <Row className="justify-content-md-center">
                     <Col md={{ span: 4, offset: "auto" }}>
-                        <Button type='submit' variant="primary" block>Fazer reserva</Button>
+                        <Button onClick={handleSubmit} type='submit' variant="primary" block>Fazer reserva</Button>
                     </Col>
                 </Row>
             </Modal.Body>

@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import { Card, Button, Container, ButtonToolbar} from 'react-bootstrap'
+import { Card, Button, ButtonToolbar} from 'react-bootstrap'
 import HotelInfoModal from "../Modal/HotelInfoModal"
 
 const CardHoteis = (props) => {
@@ -10,19 +10,21 @@ const CardHoteis = (props) => {
                 <Card.Body>
                     <Card.Title>{props.name}</Card.Title>
                     <Card.Text>
-                        {console.log(props.photo)}
+                        {/* {console.log(props.photo)} */}
                     </Card.Text>
 
                     <ButtonToolbar>
                         <Button variant="primary" onClick={() => setModalInfoCardShow(true)}>
                             Info geral do hotel
-                            </Button>
+                        </Button>
 
                         <HotelInfoModal
                             show={ModalInfoCardShow}
                             onHide={() => setModalInfoCardShow(false)}
                             name={props.name} adulto={props.adulto} crianca={props.crianca}
-                            bebe={props.bebe} dateIn={props.dateIn} dateOut={props.dateOut}
+                            bebe={props.bebe} datein={props.datein} dateout={props.dateout}
+                            photo={props.photo}
+                            // photoreference={props.photoreference}
                         />
                     </ButtonToolbar>
                 </Card.Body>

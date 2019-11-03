@@ -1,14 +1,54 @@
 import React, { Component } from 'react'
-import { Modal, Button, Form, Row, Col } from 'react-bootstrap'
+import { Modal, Row, Col } from 'react-bootstrap'
 import { getToken } from '../../services/auth'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faPhone, faEnvelope, faUser, faCity } from '@fortawesome/free-solid-svg-icons'
 import CardDeReserva from '../Cards/CardDeReserva'
+import axios from 'axios'
+import * as Config from '../../config/constants'
 
 
 class InfoDeUsuarioModal extends Component {
+
+    constructor(props) {
+        super(props);
+        this.state = {
+            reservation: []
+        }
+    }
+
+    componentDidMount(){
+        const userInfo = JSON.parse(getToken())
+        const id = {account_id: userInfo[0].id}
+        this.getUserReserve(id)
+    }
+
+    getUserReserve = (id) =>{
+        axios.post(Config.URL + 'user_reservation', id)
+            .then(resp => {
+                console.log(resp.data.user_hotels)
+                this.setState({
+                    reservation: resp.data.user_hotels
+                })
+                console.log(resp)
+            })
+            .catch(erro => {
+                console.log(erro)
+            })
+    }
+
+    lisHotelReservation = () => {
+        return this.state.reservation.map((hotel) =>
+            <CardDeReserva key={hotel.id} name={hotel.name} datein={hotel.checkin}
+            dateout={hotel.checkout} adulto={hotel.qtd_adultos} bebe={hotel.qtd_bebes}
+            crianca={hotel.qtd_criancas}/>
+        )
+        
+    }
+
     
     render() {
+        const lisHotelReservation = this.lisHotelReservation()
         const userInfo = JSON.parse(getToken())
         console.log(userInfo)
         return (
@@ -51,11 +91,7 @@ class InfoDeUsuarioModal extends Component {
                         </Col>
                     </Row>                    
                     
-                    <CardDeReserva/>
-                    <CardDeReserva/>
-                    <CardDeReserva/>
-                    <CardDeReserva/>
-                    <CardDeReserva/>
+                    {lisHotelReservation}
 
                 </Modal.Body>
             </Modal>
