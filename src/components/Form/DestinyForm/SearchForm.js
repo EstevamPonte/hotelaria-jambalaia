@@ -54,6 +54,8 @@ class SearchForm extends React.Component {
         axios.post(Config.URL + 'place_search', latLng)
             .then(resp => {
                 const hoteis = resp.data.return.results
+                hoteis.shift()
+                hoteis.pop()
                 this.setState({hoteis})
                 // this.postPhoto(hoteis)
             })
@@ -158,9 +160,9 @@ class SearchForm extends React.Component {
         return this.state.hoteis.map((hotel) =>
             <Col sm={3} key={hotel.id}>
                 <CardHoteis 
-                name={hotel.name} adulto={this.state.adultos} photo={hotel.photos}
+                name={hotel.name} adulto={this.state.adultos} 
                 crianca={this.state.crianca} bebe={this.state.bebes} datein={selectDateIn === undefined ? 'Data não informada' :  selectDateIn.toLocaleDateString()}
-                dateout={selectDateOut === undefined ? 'Data não informada' : selectDateOut.toLocaleDateString()} 
+                dateout={selectDateOut === undefined ? 'Data não informada' : selectDateOut.toLocaleDateString()} placeid={hotel.place_id}
                 />  
             </Col>
             
@@ -181,7 +183,7 @@ class SearchForm extends React.Component {
         const listaDeHoteis = this.listHoteis()
         return (
             <div>
-                {/* {console.log('hoteis', this.state.hoteis)} */}
+                {console.log('hoteis', this.state.hoteis)}
                 <Container>
                     <Jumbotron fluid="true">
                         <Row className="justify-content-md-center">

@@ -8,7 +8,6 @@ const CardDeReserva = (props) => {
             <Card.Header><FontAwesomeIcon icon={faHotel} /> {props.name}</Card.Header>
             <Card.Body>
                 <blockquote className="blockquote mb-0">
-                    <p>
                         <Row className="justify-content-md-center">
                             <Col xs lg="auto"  >
                                 <h5>
@@ -38,7 +37,6 @@ const CardDeReserva = (props) => {
                                 </h5>
                             </Col>
                         </Row>
-                    </p>
                 </blockquote>
             </Card.Body>
         </Card>
