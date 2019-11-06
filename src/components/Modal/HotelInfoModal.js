@@ -11,53 +11,37 @@ class HotelInfoModal extends Component {
         super(props);
         this.state = {
             photo: [],
-            hotelDetails: []
         }
     }
-    componentDidMount() {
-        this.gethotelDetails()
-    }
 
 
-    gethotelDetails = () => {
-        const placeid = { place_id: this.props.placeid }
-        axios.post(Config.URL + 'details_place', placeid)
-            .then(resp => {
-                // console.log("blablabla", resp.data.details.result)
-                this.setState({
-                    hotelDetails: resp.data.details.result,
-                })
-                this.linkHotel(resp.data.details.result.photos)
-            })
-            .catch(erro => {
-                console.log(erro)
-            })
-    }
 
-    linkHotel = (photos) => {
-        if (photos !== undefined) {
-            const linkPhoto = []
-            let that = this
-            photos.map((photos) => {
+
+
+    // linkHotel = (photos) => {
+    //     if (photos !== undefined) {
+    //         const linkPhoto = []
+    //         let that = this
+    //         photos.map((photos) => {
                 
-                const photoreference = { photoreference: photos.photo_reference }
-                axios.post(Config.URL + 'hotel_photo', photoreference)
-                    .then(resp => {
-                        // console.log("blvalvalvala" ,resp.data)
-                        console.log('--> ' + resp.data.return_url)
-                        let joined = [...that.state.photo, resp.data.return_url]
-                        that.setState({
-                            photo: joined
-                        })
-                    })
-                    .catch(erro => {
-                        console.log(erro)
-                    })
-                })
+    //             const photoreference = { photoreference: photos.photo_reference }
+    //             axios.post(Config.URL + 'hotel_photo', photoreference)
+    //                 .then(resp => {
+    //                     // console.log("blvalvalvala" ,resp.data)
+    //                     console.log('--> ' + resp.data.return_url)
+    //                     let joined = [...that.state.photo, resp.data.return_url]
+    //                     that.setState({
+    //                         photo: joined
+    //                     })
+    //                 })
+    //                 .catch(erro => {
+    //                     console.log(erro)
+    //                 })
+    //             })
                 
-            }
-             console.log(`photo: ${this.state.photo}`)
-    }
+    //         }
+    //          console.log(`photo: ${this.state.photo}`)
+    // }
 
     postUserReserve = (reserve) => {
         axios.post(Config.URL + "reserve", reserve)
@@ -86,11 +70,9 @@ class HotelInfoModal extends Component {
     }
 
     reviews = () => {
-        const { hotelDetails } = this.state
-        console.log(hotelDetails.reviews)
-        if (hotelDetails.reviews !== undefined) {
-            return hotelDetails.reviews.map(review =>
-                <Card>
+        if (this.props.reviews !== undefined) {
+            return this.props.reviews.map(review =>
+                <Card key={review.time}>
                     <Accordion.Toggle as={Card.Header} eventKey={review.time}>
                         {review.author_name}
                     </Accordion.Toggle>
@@ -105,7 +87,7 @@ class HotelInfoModal extends Component {
         }
     }
     render() {
-        const rating = this.state.hotelDetails.rating * 20
+        const rating = this.props.rating * 20
         const reviews = this.reviews()
         return (
             <Modal
@@ -124,7 +106,7 @@ class HotelInfoModal extends Component {
                     {/* <Carrossel photo={}/> */}
                     <Row>
                         <Col>
-                            <ProgressBar now={rating} label={`Nota geral deste hotel ${rating}`} />
+                            <ProgressBar now={rating} label={`Nota geral deste hotel ${this.props.rating}`} />
                         </Col>
                     </Row>
                     <div className='modalBlock'>

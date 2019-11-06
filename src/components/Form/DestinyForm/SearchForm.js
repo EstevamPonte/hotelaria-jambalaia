@@ -162,7 +162,7 @@ class SearchForm extends React.Component {
                 <CardHoteis 
                 name={hotel.name} adulto={this.state.adultos} 
                 crianca={this.state.crianca} bebe={this.state.bebes} datein={selectDateIn === undefined ? 'Data não informada' :  selectDateIn.toLocaleDateString()}
-                dateout={selectDateOut === undefined ? 'Data não informada' : selectDateOut.toLocaleDateString()} placeid={hotel.place_id}
+                dateout={selectDateOut === undefined ? 'Data não informada' : selectDateOut.toLocaleDateString()} placeid={hotel.place_id} id={hotel.id}
                 />  
             </Col>
             

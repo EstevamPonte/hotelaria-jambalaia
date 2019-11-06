@@ -5,29 +5,32 @@ import axios from 'axios'
 import * as Config from '../../config/constants'
 const CardHoteis = (props) => {
     const [ModalInfoCardShow, setModalInfoCardShow] = useState(false);
-    // const [photo, setPhoto] = useState("")
+    const [hotelDetails, setHotelDetails] = useState([])
 
-    // useEffect(() => {
-    //     if(props.photo !== undefined){
-    //         console.log(props.photo)
-    //         axios.post(Config.URL + 'hotel_photo', photoreference)
-    //             .then(resp => {
-    //                 setPhoto(resp.data.return_url);
-                    
-    //             })
-    //             .catch(erro => {
-    //                 console.log(erro)
-    //             })
-    //     }
-    // }, [])
+    useEffect(() => {
+      gethotelDetails()
+    }, [props.id])
+    
+    const gethotelDetails = () => {
+        const placeid = { place_id: props.placeid }
+        axios.post(Config.URL + 'details_place', placeid)
+            .then(resp => {
+                console.log("blablabla", resp.data.details.result)
+                setHotelDetails(resp.data.details.result)
+                
+            })
+            .catch(erro => {
+                console.log(erro)
+            })
+    }
 
     return (
-            <Card >
+            <Card border="primary">
                 {/* <Card.Img variant="top" src={photo} /> */}
                 <Card.Body>
                     <Card.Title>{props.name}</Card.Title>
                     <Card.Text>
-                        {/* {console.log(props.photo)} */}
+                        {/* {console.log(hotelDetails)} */}
                     </Card.Text>
 
                     <ButtonToolbar>
@@ -40,7 +43,7 @@ const CardHoteis = (props) => {
                             onHide={() => setModalInfoCardShow(false)}
                             name={props.name} adulto={props.adulto} crianca={props.crianca}
                             bebe={props.bebe} datein={props.datein} dateout={props.dateout}
-                            placeid={props.placeid}
+                            placeid={props.placeid} reviews={hotelDetails.reviews} rating={hotelDetails.rating}
                             // photoreference={props.photoreference}
                         />
                     </ButtonToolbar>

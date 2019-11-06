@@ -30,7 +30,6 @@ class InfoDeUsuarioModal extends Component {
                 this.setState({
                     reservation: resp.data.user_hotels
                 })
-                console.log(resp)
             })
             .catch(erro => {
                 console.log(erro)
@@ -89,8 +88,7 @@ class InfoDeUsuarioModal extends Component {
                         <Col sm='auto'>
                             <h1 >Suas reservas</h1>
                         </Col>
-                    </Row>                    
-                    
+                    </Row>   
                     {lisHotelReservation}
 
                 </Modal.Body>
