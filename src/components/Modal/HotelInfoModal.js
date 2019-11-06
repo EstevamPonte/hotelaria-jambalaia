@@ -4,6 +4,8 @@ import './ModalInfoCard.css'
 import { getToken } from '../../services/auth'
 import axios from 'axios'
 import * as Config from '../../config/constants'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { faPhone, faEnvelope, faUser, faCity } from '@fortawesome/free-solid-svg-icons'
 import Carrossel from '../Form/DestinyForm/CarrosselAnimado'
 
 class HotelInfoModal extends Component {
@@ -141,6 +143,7 @@ class HotelInfoModal extends Component {
                         </Row>
                     </div>
                     <div className="infoBlock">
+                        <h1>Comentarios de clientes</h1>
                         <Accordion defaultActiveKey="0">
                             {reviews} 
                         </Accordion>

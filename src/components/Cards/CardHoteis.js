@@ -3,6 +3,8 @@ import { Card, Button, ButtonToolbar} from 'react-bootstrap'
 import HotelInfoModal from "../Modal/HotelInfoModal"
 import axios from 'axios'
 import * as Config from '../../config/constants'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { faPhone, faEnvelope, faUser, faCity } from '@fortawesome/free-solid-svg-icons'
 const CardHoteis = (props) => {
     const [ModalInfoCardShow, setModalInfoCardShow] = useState(false);
     const [hotelDetails, setHotelDetails] = useState([])
