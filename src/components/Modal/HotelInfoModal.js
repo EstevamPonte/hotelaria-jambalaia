@@ -23,11 +23,11 @@ class HotelInfoModal extends Component {
         const placeid = { place_id: this.props.placeid }
         axios.post(Config.URL + 'details_place', placeid)
             .then(resp => {
-                console.log("blablabla", resp.data.details.result)
+                // console.log("blablabla", resp.data.details.result)
                 this.setState({
                     hotelDetails: resp.data.details.result,
                 })
-                // this.linkHotel(resp.data.details.result.photos)
+                this.linkHotel(resp.data.details.result.photos)
             })
             .catch(erro => {
                 console.log(erro)
@@ -37,23 +37,26 @@ class HotelInfoModal extends Component {
     linkHotel = (photos) => {
         if (photos !== undefined) {
             const linkPhoto = []
+            let that = this
             photos.map((photos) => {
+                
                 const photoreference = { photoreference: photos.photo_reference }
                 axios.post(Config.URL + 'hotel_photo', photoreference)
                     .then(resp => {
                         // console.log("blvalvalvala" ,resp.data)
-                        console.log(resp.data.return_url)
-                        let joined = this.state.photo.concat(resp.data.return_url)
-                        this.setState({
+                        console.log('--> ' + resp.data.return_url)
+                        let joined = [...that.state.photo, resp.data.return_url]
+                        that.setState({
                             photo: joined
                         })
                     })
                     .catch(erro => {
                         console.log(erro)
                     })
-            })
-
-        }
+                })
+                
+            }
+             console.log(`photo: ${this.state.photo}`)
     }
 
     postUserReserve = (reserve) => {
