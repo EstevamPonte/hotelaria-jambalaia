@@ -5,7 +5,7 @@ import { getToken } from '../../services/auth'
 import axios from 'axios'
 import * as Config from '../../config/constants'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faPhone, faEnvelope, faUser, faCity } from '@fortawesome/free-solid-svg-icons'
+import { faUser } from '@fortawesome/free-solid-svg-icons'
 import Carrossel from '../Form/DestinyForm/CarrosselAnimado'
 
 class HotelInfoModal extends Component {
@@ -76,6 +76,7 @@ class HotelInfoModal extends Component {
             return this.props.reviews.map(review =>
                 <Card key={review.time}>
                     <Accordion.Toggle as={Card.Header} eventKey={review.time}>
+                        <FontAwesomeIcon style={{marginRight: '10px'}} icon={faUser}/>
                         {review.author_name}
                     </Accordion.Toggle>
                     <Accordion.Collapse eventKey={review.time}>
@@ -105,10 +106,20 @@ class HotelInfoModal extends Component {
                 </Modal.Header>
                 <Modal.Body>
                     {/* {console.log(photo)}     */}
-                    {/* <Carrossel photo={}/> */}
+                    <Carrossel photo={this.props.linkphotos}/>
+                    <Row className="justify-content-md-center">
+                        <Col sm='auto'>
+                            <h3>Nota deste hotel</h3>
+                        </Col>
+                    </Row>  
                     <Row>
                         <Col>
-                            <ProgressBar now={rating} label={`Nota geral deste hotel ${this.props.rating}`} />
+                            <ProgressBar  style={{marginTop:"10px", marginBottom:"10px"}} now={rating} label={`${this.props.rating}`} />
+                        </Col>
+                    </Row>
+                    <Row className="justify-content-md-center">
+                        <Col sm='auto'>
+                            <h3>Status da reserva</h3>
                         </Col>
                     </Row>
                     <div className='modalBlock'>
@@ -143,7 +154,11 @@ class HotelInfoModal extends Component {
                         </Row>
                     </div>
                     <div className="infoBlock">
-                        <h1>Comentarios de clientes</h1>
+                        <Row className="justify-content-md-center">
+                            <Col sm='auto'>
+                                <h3>Comentarios de clientes</h3>
+                            </Col>
+                        </Row>
                         <Accordion defaultActiveKey="0">
                             {reviews} 
                         </Accordion>
