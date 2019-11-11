@@ -158,7 +158,7 @@ class SearchForm extends React.Component {
         const { selectDateIn, selectDateOut} = this.state
        
         return this.state.hoteis.map((hotel) =>
-            <Col sm={3} key={hotel.id}>
+            <Col sm={12} key={hotel.id} style={{marginBottom: "5px"}}>
                 <CardHoteis 
                 name={hotel.name} adulto={this.state.adultos} 
                 crianca={this.state.crianca} bebe={this.state.bebes} datein={selectDateIn === undefined ? 'Data não informada' :  selectDateIn.toLocaleDateString()}

@@ -12,12 +12,59 @@ class HotelInfoModal extends Component {
     constructor(props) {
         super(props);
         this.state = {
+            HotelDetails: [],
             photo: [],
         }
     }
+    
+    componentDidMount() {
+        this.gethotelDetails()
+    }
+
+    gethotelDetails = () => {
+        const placeid = { place_id: this.props.placeid }
+        axios.post(Config.URL + 'details_place', placeid)
+            .then(resp => {
+                // console.log("blablabla", resp.data.details.result) 
+                this.setState({
+                    HotelDetails: resp.data.details.result
+                })
+                // setHotelDetails(resp.data.details.result)
+                this.linkHotel(resp.data.details.result.photos)
+            })
+            .catch(erro => {
+                console.log(erro)
+            })
+    }
 
 
+    linkHotel = (photos) => {
+            if (photos !== undefined) {
+                photos.map((photo) => {  
+                    // console.log(photo) 
+                    const photoreference = { photoreference: photo.photo_reference }
+                    this.getlinkPhotos(photoreference)
+                })       
+            }
+        }
 
+    
+
+    getlinkPhotos = (photoreference) => {
+        axios.post(Config.URL + 'hotel_photo', photoreference)
+            .then(resp => {
+                // console.log("blvalvalvala" ,resp.data)
+                // console.log('--> ' + resp.data.return_url)
+                let joined = [...this.state.photo, resp.data.return_url]
+                // console.log(resp.data)
+                this.setState({
+                    photo: joined
+                })
+            })
+            .catch(erro => {
+                console.log(erro)
+            })
+    }
 
 
     // linkHotel = (photos) => {
@@ -72,8 +119,8 @@ class HotelInfoModal extends Component {
     }
 
     reviews = () => {
-        if (this.props.reviews !== undefined) {
-            return this.props.reviews.map(review =>
+        if (this.state.HotelDetails.reviews !== undefined) {
+            return this.state.HotelDetails.reviews.map(review =>
                 <Card key={review.time}>
                     <Accordion.Toggle as={Card.Header} eventKey={review.time}>
                         <FontAwesomeIcon style={{marginRight: '10px'}} icon={faUser}/>
@@ -90,7 +137,7 @@ class HotelInfoModal extends Component {
         }
     }
     render() {
-        const rating = this.props.rating * 20
+        const rating = this.state.HotelDetails.rating * 20
         const reviews = this.reviews()
         return (
             <Modal
@@ -99,14 +146,15 @@ class HotelInfoModal extends Component {
                 aria-labelledby="example-custom-modal-styling-title"
                 size="lg"
             >
+                {/* {console.log(this.state.photo)} */}
                 <Modal.Header closeButton>
                     <Modal.Title id="example-custom-modal-styling-title">
-                        {this.props.name}
+                        {this.state.HotelDetails.name}
                     </Modal.Title>
                 </Modal.Header>
                 <Modal.Body>
                     {/* {console.log(photo)}     */}
-                    <Carrossel photo={this.props.linkphotos}/>
+                    <Carrossel photo={this.state.photo}/>
                     <Row className="justify-content-md-center">
                         <Col sm='auto'>
                             <h3>Nota deste hotel</h3>
@@ -114,7 +162,7 @@ class HotelInfoModal extends Component {
                     </Row>  
                     <Row>
                         <Col>
-                            <ProgressBar  style={{marginTop:"10px", marginBottom:"10px"}} now={rating} label={`${this.props.rating}`} />
+                            <ProgressBar  style={{marginTop:"10px", marginBottom:"10px"}} now={rating} label={`${this.state.HotelDetails.rating}`} />
                         </Col>
                     </Row>
                     <Row className="justify-content-md-center">
