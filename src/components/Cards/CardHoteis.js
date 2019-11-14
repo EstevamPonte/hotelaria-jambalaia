@@ -10,6 +10,7 @@ import { faHotel, faMapMarkedAlt, faPhone} from '@fortawesome/free-solid-svg-ico
 const CardHoteis = (props) => {
     const [ModalInfoCardShow, setModalInfoCardShow] = useState(false);
     const [hotelDetails, setHotelDetails] = useState([])
+    const [price, setPrice] = useState([])
 
     useEffect(() => {
       gethotelDetails()
@@ -19,7 +20,8 @@ const CardHoteis = (props) => {
         const placeid = { place_id: props.placeid }
         axios.post(Config.URL + 'details_place', placeid)
             .then(resp => {
-                // console.log("blablabla", resp.data.details.result) 
+                console.log("blablabla", resp.data) 
+                setPrice(resp.data.price)
                 setHotelDetails(resp.data.details.result)
                 // linkHotel(resp.data.details.result.photos)
             })
@@ -52,7 +54,6 @@ const CardHoteis = (props) => {
     //         }
     //     }
     
-
     return (
             <Card border="primary">
                 <Card.Header><FontAwesomeIcon icon={faHotel} /> {props.name}</Card.Header>
@@ -81,7 +82,9 @@ const CardHoteis = (props) => {
                             onHide={() => setModalInfoCardShow(false)}
                             name={props.name} adulto={props.adulto} crianca={props.crianca}
                             bebe={props.bebe} datein={props.datein} dateout={props.dateout}
-                            placeid={props.placeid}
+                            placeid={props.placeid} rating={hotelDetails.rating} review={hotelDetails.reviews}
+                            phone={hotelDetails.formatted_phone_number} address={hotelDetails.formatted_address}
+                            price={price}
                             // photoreference={props.photoreference}
                         />
                     </ButtonToolbar>

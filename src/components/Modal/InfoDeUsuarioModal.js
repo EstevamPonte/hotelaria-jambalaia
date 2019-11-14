@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import { Modal, Row, Col } from 'react-bootstrap'
+import { Modal, Row, Col, Button } from 'react-bootstrap'
 import { getToken } from '../../services/auth'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faPhone, faEnvelope, faUser, faCity } from '@fortawesome/free-solid-svg-icons'
@@ -38,9 +38,10 @@ class InfoDeUsuarioModal extends Component {
 
     lisHotelReservation = () => {
         return this.state.reservation.map((hotel) =>
-            <CardDeReserva key={hotel.id} name={hotel.name} datein={hotel.checkin}
+            <CardDeReserva key={hotel.id} id={hotel.id} name={hotel.name} datein={hotel.checkin}
+            getUserReserve={this.getUserReserve}
             dateout={hotel.checkout} adulto={hotel.qtd_adultos} bebe={hotel.qtd_bebes}
-            crianca={hotel.qtd_criancas}/>
+            crianca={hotel.qtd_criancas} address={hotel.hotel_name} phone={hotel.hotel_phone}/>
         )
         
     }
@@ -58,9 +59,15 @@ class InfoDeUsuarioModal extends Component {
                 centered
             >
                 <Modal.Header closeButton>
-                    <Modal.Title id="contained-modal-title-vcenter">
-                        <FontAwesomeIcon style={{marginRight: '10px'}} icon={faUser}/>
-                        {userInfo[0].name}
+                    <Modal.Title>
+                        <Row>
+                            <Col>
+                                <FontAwesomeIcon style={{marginRight: '10px'}} icon={faUser}/> {userInfo[0].name}
+                            </Col>  
+                            <Col sm="auto" >
+                                <Button variant="success" size="sm" onClick={() => this.getUserReserve({account_id: userInfo[0].id})}>Atualizar reservas</Button>
+                            </Col>
+                        </Row>
                     </Modal.Title>
                 </Modal.Header>
                 <Modal.Body>
@@ -86,7 +93,7 @@ class InfoDeUsuarioModal extends Component {
                     </Row>
                     <Row className="justify-content-md-center">
                         <Col sm='auto'>
-                            <h1 >Suas reservas</h1>
+                            {this.state.reservation.length === 0 ? <h1 >Não há reservas</h1>: <h1 >Suas reservas</h1>}
                         </Col>
                     </Row>   
                     {lisHotelReservation}

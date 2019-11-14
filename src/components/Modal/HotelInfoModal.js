@@ -9,62 +9,62 @@ import { faUser } from '@fortawesome/free-solid-svg-icons'
 import Carrossel from '../Form/DestinyForm/CarrosselAnimado'
 
 class HotelInfoModal extends Component {
-    constructor(props) {
-        super(props);
-        this.state = {
-            HotelDetails: [],
-            photo: [],
-        }
-    }
+    // constructor(props) {
+    //     super(props);
+    //     this.state = {
+    //         HotelDetails: [],
+    //         photo: [],
+    //     }
+    // }
     
-    componentDidMount() {
-        this.gethotelDetails()
-    }
+    // componentDidMount() {
+    //     this.gethotelDetails()
+    // }
 
-    gethotelDetails = () => {
-        const placeid = { place_id: this.props.placeid }
-        axios.post(Config.URL + 'details_place', placeid)
-            .then(resp => {
-                // console.log("blablabla", resp.data.details.result) 
-                this.setState({
-                    HotelDetails: resp.data.details.result
-                })
-                // setHotelDetails(resp.data.details.result)
-                this.linkHotel(resp.data.details.result.photos)
-            })
-            .catch(erro => {
-                console.log(erro)
-            })
-    }
+    // gethotelDetails = () => {
+    //     const placeid = { place_id: this.props.placeid }
+    //     axios.post(Config.URL + 'details_place', placeid)
+    //         .then(resp => {
+    //             // console.log("blablabla", resp.data.details.result) 
+    //             this.setState({
+    //                 HotelDetails: resp.data.details.result
+    //             })
+    //             // setHotelDetails(resp.data.details.result)
+    //             this.linkHotel(resp.data.details.result.photos)
+    //         })
+    //         .catch(erro => {
+    //             console.log(erro)
+    //         })
+    // }
 
 
-    linkHotel = (photos) => {
-            if (photos !== undefined) {
-                photos.map((photo) => {  
-                    // console.log(photo) 
-                    const photoreference = { photoreference: photo.photo_reference }
-                    this.getlinkPhotos(photoreference)
-                })       
-            }
-        }
+    // linkHotel = (photos) => {
+    //         if (photos !== undefined) {
+    //             photos.map((photo) => {  
+    //                 // console.log(photo) 
+    //                 const photoreference = { photoreference: photo.photo_reference }
+    //                 this.getlinkPhotos(photoreference)
+    //             })       
+    //         }
+    //     }
 
     
 
-    getlinkPhotos = (photoreference) => {
-        axios.post(Config.URL + 'hotel_photo', photoreference)
-            .then(resp => {
-                // console.log("blvalvalvala" ,resp.data)
-                // console.log('--> ' + resp.data.return_url)
-                let joined = [...this.state.photo, resp.data.return_url]
-                // console.log(resp.data)
-                this.setState({
-                    photo: joined
-                })
-            })
-            .catch(erro => {
-                console.log(erro)
-            })
-    }
+    // getlinkPhotos = (photoreference) => {
+    //     axios.post(Config.URL + 'hotel_photo', photoreference)
+    //         .then(resp => {
+    //             // console.log("blvalvalvala" ,resp.data)
+    //             // console.log('--> ' + resp.data.return_url)
+    //             let joined = [...this.state.photo, resp.data.return_url]
+    //             // console.log(resp.data)
+    //             this.setState({
+    //                 photo: joined
+    //             })
+    //         })
+    //         .catch(erro => {
+    //             console.log(erro)
+    //         })
+    // }
 
 
     // linkHotel = (photos) => {
@@ -113,14 +113,16 @@ class HotelInfoModal extends Component {
             adults: this.props.adulto,
             babies: this.props.bebe,
             checkin: this.props.datein,
-            checkout: this.props.dateout
+            checkout: this.props.dateout,
+            hotel_name: this.props.address,
+            hotel_phone: this.props.phone
         }
         this.postUserReserve(userReserve)
     }
 
     reviews = () => {
-        if (this.state.HotelDetails.reviews !== undefined) {
-            return this.state.HotelDetails.reviews.map(review =>
+        if (this.props.review !== undefined) {
+            return this.props.review.map(review =>
                 <Card key={review.time}>
                     <Accordion.Toggle as={Card.Header} eventKey={review.time}>
                         <FontAwesomeIcon style={{marginRight: '10px'}} icon={faUser}/>
@@ -137,7 +139,7 @@ class HotelInfoModal extends Component {
         }
     }
     render() {
-        const rating = this.state.HotelDetails.rating * 20
+        const rating = this.props.rating * 20
         const reviews = this.reviews()
         return (
             <Modal
@@ -149,12 +151,12 @@ class HotelInfoModal extends Component {
                 {/* {console.log(this.state.photo)} */}
                 <Modal.Header closeButton>
                     <Modal.Title id="example-custom-modal-styling-title">
-                        {this.state.HotelDetails.name}
+                        {this.props.name}
                     </Modal.Title>
                 </Modal.Header>
                 <Modal.Body>
                     {/* {console.log(photo)}     */}
-                    <Carrossel photo={this.state.photo}/>
+                    <Carrossel/>
                     <Row className="justify-content-md-center">
                         <Col sm='auto'>
                             <h3>Nota deste hotel</h3>
@@ -162,7 +164,7 @@ class HotelInfoModal extends Component {
                     </Row>  
                     <Row>
                         <Col>
-                            <ProgressBar  style={{marginTop:"10px", marginBottom:"10px"}} now={rating} label={`${this.state.HotelDetails.rating}`} />
+                            <ProgressBar  style={{marginTop:"10px", marginBottom:"10px"}} now={rating} label={`${this.props.rating}`} />
                         </Col>
                     </Row>
                     <Row className="justify-content-md-center">
