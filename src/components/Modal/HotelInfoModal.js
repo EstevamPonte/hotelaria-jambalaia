@@ -1,7 +1,7 @@
-import React, { useState, useEffect, Component } from 'react';
+import React, {Component } from 'react';
 import { Modal, Row, Col, Badge, Button, ProgressBar, Card, Accordion } from 'react-bootstrap'
 import './ModalInfoCard.css'
-import { getToken } from '../../services/auth'
+import { getToken, isAuthenticated } from '../../services/auth'
 import axios from 'axios'
 import * as Config from '../../config/constants'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
@@ -9,88 +9,7 @@ import { faUser } from '@fortawesome/free-solid-svg-icons'
 import Carrossel from '../Form/DestinyForm/CarrosselAnimado'
 
 class HotelInfoModal extends Component {
-    // constructor(props) {
-    //     super(props);
-    //     this.state = {
-    //         HotelDetails: [],
-    //         photo: [],
-    //     }
-    // }
     
-    // componentDidMount() {
-    //     this.gethotelDetails()
-    // }
-
-    // gethotelDetails = () => {
-    //     const placeid = { place_id: this.props.placeid }
-    //     axios.post(Config.URL + 'details_place', placeid)
-    //         .then(resp => {
-    //             // console.log("blablabla", resp.data.details.result) 
-    //             this.setState({
-    //                 HotelDetails: resp.data.details.result
-    //             })
-    //             // setHotelDetails(resp.data.details.result)
-    //             this.linkHotel(resp.data.details.result.photos)
-    //         })
-    //         .catch(erro => {
-    //             console.log(erro)
-    //         })
-    // }
-
-
-    // linkHotel = (photos) => {
-    //         if (photos !== undefined) {
-    //             photos.map((photo) => {  
-    //                 // console.log(photo) 
-    //                 const photoreference = { photoreference: photo.photo_reference }
-    //                 this.getlinkPhotos(photoreference)
-    //             })       
-    //         }
-    //     }
-
-    
-
-    // getlinkPhotos = (photoreference) => {
-    //     axios.post(Config.URL + 'hotel_photo', photoreference)
-    //         .then(resp => {
-    //             // console.log("blvalvalvala" ,resp.data)
-    //             // console.log('--> ' + resp.data.return_url)
-    //             let joined = [...this.state.photo, resp.data.return_url]
-    //             // console.log(resp.data)
-    //             this.setState({
-    //                 photo: joined
-    //             })
-    //         })
-    //         .catch(erro => {
-    //             console.log(erro)
-    //         })
-    // }
-
-
-    // linkHotel = (photos) => {
-    //     if (photos !== undefined) {
-    //         const linkPhoto = []
-    //         let that = this
-    //         photos.map((photos) => {
-                
-    //             const photoreference = { photoreference: photos.photo_reference }
-    //             axios.post(Config.URL + 'hotel_photo', photoreference)
-    //                 .then(resp => {
-    //                     // console.log("blvalvalvala" ,resp.data)
-    //                     console.log('--> ' + resp.data.return_url)
-    //                     let joined = [...that.state.photo, resp.data.return_url]
-    //                     that.setState({
-    //                         photo: joined
-    //                     })
-    //                 })
-    //                 .catch(erro => {
-    //                     console.log(erro)
-    //                 })
-    //             })
-                
-    //         }
-    //          console.log(`photo: ${this.state.photo}`)
-    // }
 
     postUserReserve = (reserve) => {
         axios.post(Config.URL + "reserve", reserve)
@@ -106,18 +25,23 @@ class HotelInfoModal extends Component {
 
     handleSubmit = () => {
         const userInfo = JSON.parse(getToken())
-        const userReserve = {
-            account_id: userInfo[0].id,
-            establishment_name: this.props.name,
-            childrens: this.props.crianca,
-            adults: this.props.adulto,
-            babies: this.props.bebe,
-            checkin: this.props.datein,
-            checkout: this.props.dateout,
-            hotel_name: this.props.address,
-            hotel_phone: this.props.phone
+        if(isAuthenticated()){
+            const userReserve = {
+                account_id: userInfo[0].id,
+                establishment_name: this.props.name,
+                childrens: this.props.crianca,
+                adults: this.props.adulto,
+                babies: this.props.bebe,
+                checkin: this.props.datein,
+                checkout: this.props.dateout,
+                hotel_name: this.props.address,
+                hotel_phone: this.props.phone
+            }
+            this.postUserReserve(userReserve)
+        }else{
+            alert("Voce precisa está logado para reservar")
         }
-        this.postUserReserve(userReserve)
+        
     }
 
     reviews = () => {
@@ -148,14 +72,21 @@ class HotelInfoModal extends Component {
                 aria-labelledby="example-custom-modal-styling-title"
                 size="lg"
             >
-                {/* {console.log(this.state.photo)} */}
                 <Modal.Header closeButton>
                     <Modal.Title id="example-custom-modal-styling-title">
-                        {this.props.name}
+                        <Row>
+                            <Col>
+                                {this.props.name}
+                            </Col>
+                            <Col sm='auto'>
+                                <b>
+                                    {`R$${this.props.price}`}
+                                </b>
+                            </Col>
+                        </Row>
                     </Modal.Title>
                 </Modal.Header>
                 <Modal.Body>
-                    {/* {console.log(photo)}     */}
                     <Carrossel/>
                     <Row className="justify-content-md-center">
                         <Col sm='auto'>

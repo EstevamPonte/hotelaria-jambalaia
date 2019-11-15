@@ -26,7 +26,6 @@ class InfoDeUsuarioModal extends Component {
     getUserReserve = (id) =>{
         axios.post(Config.URL + 'user_reservation', id)
             .then(resp => {
-                console.log(resp.data.user_hotels)
                 this.setState({
                     reservation: resp.data.user_hotels
                 })
@@ -50,7 +49,6 @@ class InfoDeUsuarioModal extends Component {
     render() {
         const lisHotelReservation = this.lisHotelReservation()
         const userInfo = JSON.parse(getToken())
-        console.log(userInfo)
         return (
             <Modal
                 {...this.props}

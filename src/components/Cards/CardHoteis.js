@@ -13,50 +13,38 @@ const CardHoteis = (props) => {
     const [price, setPrice] = useState([])
 
     useEffect(() => {
+        const gethotelDetails = () => {
+            const placeid = { place_id: props.placeid }
+            axios.post(Config.URL + 'details_place', placeid)
+                .then(resp => {
+                    setPrice(resp.data.price)
+                    setHotelDetails(resp.data.details.result)
+                })
+                .catch(erro => {
+                    console.log(erro)
+                })
+        }
       gethotelDetails()
-    }, [props.id])
+    }, [props])
     
-    const gethotelDetails = () => {
-        const placeid = { place_id: props.placeid }
-        axios.post(Config.URL + 'details_place', placeid)
-            .then(resp => {
-                console.log("blablabla", resp.data) 
-                setPrice(resp.data.price)
-                setHotelDetails(resp.data.details.result)
-                // linkHotel(resp.data.details.result.photos)
-            })
-            .catch(erro => {
-                console.log(erro)
-            })
-    }
+    
 
-    // const getlinkPhotos = (photoreference) => {
-    //     axios.post(Config.URL + 'hotel_photo', photoreference)
-    //         .then(resp => {
-    //             // console.log("blvalvalvala" ,resp.data)
-    //             // console.log('--> ' + resp.data.return_url)
-    //             let joined = [...linkPhotos, resp.data.return_url]
-    //             setLinkPhotos(joined)
-    //         })
-    //         .catch(erro => {
-    //             console.log(erro)
-    //         })
-    // }
-
-    // const linkHotel = (photos) => {
-    //         // console.log(hotelDetails)
-    //         if (photos !== undefined) {
-    //             photos.map((photos) => {  
-    //                 // console.log("fotos",photos)  
-    //                 const photoreference = { photoreference: photos.photo_reference }
-    //                 getlinkPhotos(photoreference)
-    //             })       
-    //         }
-    //     }
     
     return (
             <Card border="primary">
-                <Card.Header><FontAwesomeIcon icon={faHotel} /> {props.name}</Card.Header>
+                <Card.Header>
+                    <Row>
+                        <Col>
+                            <FontAwesomeIcon icon={faHotel} /> {props.name} 
+                        </Col>
+                        <Col sm='auto'>
+                            <b>
+
+                                {`R$${parseFloat(price).toFixed(2)}`}
+                            </b>
+                        </Col>
+                    </Row>
+                </Card.Header>
                 {/* <Card.Img variant="top" src={photo} /> */}
                 <Card.Body>
                         <Row>
@@ -84,8 +72,7 @@ const CardHoteis = (props) => {
                             bebe={props.bebe} datein={props.datein} dateout={props.dateout}
                             placeid={props.placeid} rating={hotelDetails.rating} review={hotelDetails.reviews}
                             phone={hotelDetails.formatted_phone_number} address={hotelDetails.formatted_address}
-                            price={price}
-                            // photoreference={props.photoreference}
+                            price={parseFloat(price).toFixed(2)}
                         />
                     </ButtonToolbar>
                 </Card.Body>

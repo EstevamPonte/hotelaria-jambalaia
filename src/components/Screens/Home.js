@@ -5,7 +5,6 @@ import { Form, Button } from 'react-bootstrap';
 
 function Home() {
     return (
-        // <Image style={{width: 1980, height: 1080}}src={HotelBell}/>
         <div>
             <Form style={{ width: 200, height: 200, alignSelf: "center", borderWidth: 2 }}>
                 <Form.Group controlId="formBasicEmail">

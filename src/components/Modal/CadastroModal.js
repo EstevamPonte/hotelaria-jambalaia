@@ -23,13 +23,11 @@ class CadastroModal extends Component {
                 .then( resp => {
                     if (resp.data.status === 800){
                         alert(`${resp.data.message}`)
-                        console.log(resp)
                     } else if(resp.data.status === 200){
                         alert(`${resp.data.message}`)
                         login(JSON.stringify(resp.data.conta))
                         this.props.onHide()
                     } else if(resp.data.status === 300) {
-                        console.log(resp)
                         alert(`${resp.data.message}`)
                     }
                 })
@@ -60,7 +58,6 @@ class CadastroModal extends Component {
         if(email !== null){
 
             if(email === '' || email.includes("@") === false){
-                console.log(!email.includes("@"))
                 
                 lista.push(
                     <Alert key={2} variant={"warning"}>

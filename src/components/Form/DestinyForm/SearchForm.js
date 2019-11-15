@@ -29,27 +29,7 @@ class SearchForm extends React.Component {
         }
     }
 
-    // componentDidMount(){
-    //     this.getHotel()
-    // }
     
-    // postPhoto(hoteis){
-    //     hoteis.map((reference) =>{
-    //         const photoreference = {photoreference: reference.photos[0].photo_reference}
-    //         axios.post(Config.URL + 'hotel_photo', photoreference)
-    //         .then(resp => {
-    //             console.log(resp.data)
-    //             // this.setState({hoteis: resp})
-    //             })
-    //             .catch(erro => {
-    //                 console.log(erro)
-    //             })
-    //     }
-            
-    //     )
-        
-    // }
-
     postHotel(latLng){
         axios.post(Config.URL + 'place_search', latLng)
             .then(resp => {
@@ -57,7 +37,6 @@ class SearchForm extends React.Component {
                 hoteis.shift()
                 hoteis.pop()
                 this.setState({hoteis})
-                // this.postPhoto(hoteis)
             })
             .catch(erro => {
                 console.log(erro)
@@ -167,15 +146,7 @@ class SearchForm extends React.Component {
             </Col>
             
             )
-            
-            
-        // return(
-        // <Col sm={3}>
-        //     <CardHoteis 
-        //     adulto={this.state.adultos}
-        //     crianca={this.state.crianca} bebe={this.state.bebes} datein={selectDateIn === undefined ? 'Data não informada' :  selectDateIn.toLocaleDateString()}
-        //     dateout={selectDateOut === undefined ? 'Data não informada' : selectDateOut.toLocaleDateString()}/>
-        // </Col>)
+
     }
 
     render() {
@@ -183,7 +154,6 @@ class SearchForm extends React.Component {
         const listaDeHoteis = this.listHoteis()
         return (
             <div>
-                {console.log('hoteis', this.state.hoteis)}
                 <Container>
                     <Jumbotron fluid="true">
                         <Row className="justify-content-md-center">
@@ -213,13 +183,12 @@ class SearchForm extends React.Component {
                                                         })}
                                                     />
                                                     <div style={{ zIndex: 2, position: "absolute" }} className="autocomplete-dropdown-container">
-                                                        {/* {console.log(suggestions)} */}
+                                                        
                                                         {suggestions.map(suggestion => {
 
                                                             const className = suggestion.active
                                                                 ? 'suggestion-item--active'
                                                                 : 'suggestion-item';
-                                                            // inline style for demonstration purpose
 
                                                             const style = suggestion.active
                                                                 ? { backgroundColor: '#fafafa', cursor: 'pointer' }
