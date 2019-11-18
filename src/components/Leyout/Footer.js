@@ -4,7 +4,7 @@ import { Navbar, NavbarBrand, Row } from 'react-bootstrap';
 
 function Footer() {
     return (
-        <Navbar sticky="bottom" bg="light" variant="light">
+        <Navbar fixed="bottom" fi bg="light" variant="light">
             <NavbarBrand>
                 <Row className='footerLatter'>
                     Adriano Augusto de Sousa Junior
